@@ -35,8 +35,10 @@ public struct Order: Codable, Hashable {
     public var listing: PartialListing?
     /** The fulfillment status of the order. */
     public var fulfillmentStatus: FulfillmentStatus
+    /** A URL to see the order's status. */
+    public var statusUrl: String?
 
-    public init(id: UUID, displayId: Int, totalPriceCents: Int, currency: Currency, paymentStatus: PaymentStatus, paymentUrl: String? = nil, listing: PartialListing? = nil, fulfillmentStatus: FulfillmentStatus) {
+    public init(id: UUID, displayId: Int, totalPriceCents: Int, currency: Currency, paymentStatus: PaymentStatus, paymentUrl: String? = nil, listing: PartialListing? = nil, fulfillmentStatus: FulfillmentStatus, statusUrl: String? = nil) {
         self.id = id
         self.displayId = displayId
         self.totalPriceCents = totalPriceCents
@@ -45,6 +47,7 @@ public struct Order: Codable, Hashable {
         self.paymentUrl = paymentUrl
         self.listing = listing
         self.fulfillmentStatus = fulfillmentStatus
+        self.statusUrl = statusUrl
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -56,6 +59,7 @@ public struct Order: Codable, Hashable {
         case paymentUrl = "payment_url"
         case listing
         case fulfillmentStatus = "fulfillment_status"
+        case statusUrl = "status_url"
     }
 
     // Encodable protocol methods
@@ -70,6 +74,7 @@ public struct Order: Codable, Hashable {
         try container.encodeIfPresent(paymentUrl, forKey: .paymentUrl)
         try container.encodeIfPresent(listing, forKey: .listing)
         try container.encode(fulfillmentStatus, forKey: .fulfillmentStatus)
+        try container.encodeIfPresent(statusUrl, forKey: .statusUrl)
     }
 }
 
