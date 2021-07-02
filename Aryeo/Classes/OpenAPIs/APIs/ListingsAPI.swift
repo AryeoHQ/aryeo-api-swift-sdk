@@ -101,12 +101,12 @@ open class ListingsAPI {
     /**
      Get information about a listing.
      
-     - parameter id: (path) The UUID of a listing. 
+     - parameter uuid: (path) The UUID of a listing. 
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getListingsId(id: UUID, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ListingResource?, _ error: Error?) -> Void)) {
-        getListingsIdWithRequestBuilder(id: id).execute(apiResponseQueue) { result -> Void in
+    open class func getListingsId(uuid: UUID, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ListingResource?, _ error: Error?) -> Void)) {
+        getListingsIdWithRequestBuilder(uuid: uuid).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -118,19 +118,19 @@ open class ListingsAPI {
 
     /**
      Get information about a listing.
-     - GET /listings/{id}
+     - GET /listings/{uuid}
      - Get information about a listing.
      - BASIC:
        - type: http
        - name: JWT
-     - parameter id: (path) The UUID of a listing. 
+     - parameter uuid: (path) The UUID of a listing. 
      - returns: RequestBuilder<ListingResource> 
      */
-    open class func getListingsIdWithRequestBuilder(id: UUID) -> RequestBuilder<ListingResource> {
-        var path = "/listings/{id}"
-        let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
-        let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
+    open class func getListingsIdWithRequestBuilder(uuid: UUID) -> RequestBuilder<ListingResource> {
+        var path = "/listings/{uuid}"
+        let uuidPreEscape = "\(APIHelper.mapValueToPathItem(uuid))"
+        let uuidPostEscape = uuidPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        path = path.replacingOccurrences(of: "{uuid}", with: uuidPostEscape, options: .literal, range: nil)
         let URLString = Aryeo.basePath + path
         let parameters: [String: Any]? = nil
 

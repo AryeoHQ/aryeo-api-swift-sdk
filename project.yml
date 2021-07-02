@@ -7,7 +7,7 @@ targets:
     sources: [Aryeo]
     info:
       path: ./Info.plist
-      version: 1.0.0
+      version: 
     settings:
       APPLICATION_EXTENSION_API_ONLY: true
     scheme: {}
