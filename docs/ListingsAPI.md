@@ -5,7 +5,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getListings**](ListingsAPI.md#getlistings) | **GET** /listings | Get the listings available to a group.
-[**getListingsId**](ListingsAPI.md#getlistingsid) | **GET** /listings/{uuid} | Get information about a listing.
+[**getListingsId**](ListingsAPI.md#getlistingsid) | **GET** /listings/{id} | Get information about a listing.
 
 
 # **getListings**
@@ -72,7 +72,7 @@ Name | Type | Description  | Notes
 
 # **getListingsId**
 ```swift
-    open class func getListingsId(uuid: UUID, completion: @escaping (_ data: ListingResource?, _ error: Error?) -> Void)
+    open class func getListingsId(id: UUID, completion: @escaping (_ data: ListingResource?, _ error: Error?) -> Void)
 ```
 
 Get information about a listing.
@@ -84,10 +84,10 @@ Get information about a listing.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
-let uuid = 987 // UUID | The UUID of a listing.
+let id = 987 // UUID | The UUID of a listing.
 
 // Get information about a listing.
-ListingsAPI.getListingsId(uuid: uuid) { (response, error) in
+ListingsAPI.getListingsId(id: id) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -103,7 +103,7 @@ ListingsAPI.getListingsId(uuid: uuid) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **uuid** | [**UUID**](.md) | The UUID of a listing. | 
+ **id** | [**UUID**](.md) | The UUID of a listing. | 
 
 ### Return type
 
