@@ -14,13 +14,13 @@ import AnyCodable
 public struct InteractiveContent: Codable, Hashable {
 
     public enum DisplayType: String, Codable, CaseIterable {
-        case branded = "branded"
-        case unbranded = "unbranded"
-        case both = "both"
+        case branded = "BRANDED"
+        case unbranded = "UNBRANDED"
+        case both = "BOTH"
     }
     public enum ContentType: String, Codable, CaseIterable {
-        case matterport = "matterport"
-        case other = "other"
+        case matterport = "MATTERPORT"
+        case other = "OTHER"
     }
     /** ID of the content. */
     public var id: UUID

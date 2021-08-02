@@ -14,32 +14,32 @@ import AnyCodable
 public struct FloorPlan: Codable, Hashable {
 
     /** ID of the floor plan. */
-    public var id: Int
-    /** A URL for a thumbnail-sized version of the floor plan. */
-    public var thumbnailUrl: String
-    /** A URL for a large version of the floor plan. */
-    public var largeUrl: String
+    public var id: UUID
     /** A URL for the original, full-resolution version of the floor plan. Useful for downloading. */
     public var originalUrl: String
+    /** A URL for a large version of the floor plan. */
+    public var largeUrl: String
+    /** A URL for a thumbnail-sized version of the floor plan. */
+    public var thumbnailUrl: String
     /** The title (or caption) of the floor plan. */
     public var title: String?
     /** Index order position of the floor plan. */
     public var index: Int?
 
-    public init(id: Int, thumbnailUrl: String, largeUrl: String, originalUrl: String, title: String? = nil, index: Int? = nil) {
+    public init(id: UUID, originalUrl: String, largeUrl: String, thumbnailUrl: String, title: String? = nil, index: Int? = nil) {
         self.id = id
-        self.thumbnailUrl = thumbnailUrl
-        self.largeUrl = largeUrl
         self.originalUrl = originalUrl
+        self.largeUrl = largeUrl
+        self.thumbnailUrl = thumbnailUrl
         self.title = title
         self.index = index
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
-        case thumbnailUrl = "thumbnail_url"
-        case largeUrl = "large_url"
         case originalUrl = "original_url"
+        case largeUrl = "large_url"
+        case thumbnailUrl = "thumbnail_url"
         case title
         case index
     }
@@ -49,9 +49,9 @@ public struct FloorPlan: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(thumbnailUrl, forKey: .thumbnailUrl)
-        try container.encode(largeUrl, forKey: .largeUrl)
         try container.encode(originalUrl, forKey: .originalUrl)
+        try container.encode(largeUrl, forKey: .largeUrl)
+        try container.encode(thumbnailUrl, forKey: .thumbnailUrl)
         try container.encodeIfPresent(title, forKey: .title)
         try container.encodeIfPresent(index, forKey: .index)
     }

@@ -13,65 +13,77 @@ import AnyCodable
 /** A collection of users that can interact with the Aryeo platform. Permissions and properties are determined based on the group&#39;s type which can be creator, agent, or brokerage. */
 public struct Group: Codable, Hashable {
 
-    public enum GroupType: String, Codable, CaseIterable {
-        case creator = "creator"
-        case agent = "agent"
-        case brokerage = "brokerage"
+    public enum ModelType: String, Codable, CaseIterable {
+        case creator = "CREATOR"
+        case agent = "AGENT"
+        case brokerage = "BROKERAGE"
     }
     /** ID of the group. */
     public var id: UUID
-    /** The type of group. */
-    public var groupType: GroupType
+    /** The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned. */
+    public var type: ModelType
     /** The name of the group. */
     public var name: String
-    /** Group logo. */
-    public var logo: String?
-    /** Email. */
+    /** The email address of a group. */
     public var email: String?
-    /** Phone number. */
+    /** A phone number represented in whichever standards specified by the group, typically ###-###-#### (separated by hyphens). */
     public var phone: String?
-    /** Website. */
-    public var website: String?
+    /** The website URL of a group. */
+    public var websiteUrl: String?
+    /** The logo URL of a group. */
+    public var logoUrl: String?
+    /** The profile image URL of a real estate agent. Only returned if group's type is AGENT. */
+    public var avatarUrl: String?
+    /** The name of the brokerage or team of a real estate agent. Only returned if group's type is AGENT. */
+    public var officeName: String?
+    /** The license number of a real estate agent. Only returned if group's type is AGENT. */
+    public var licenseNumber: String?
+    public var socialProfiles: SocialProfiles?
+    public var defaultOrderForm: OrderForm?
+    /** An array of order forms a vendor group provides for placing orders. Only returned if group's type is CREATOR.  */
+    public var orderForms: [OrderForm]?
+    public var owner: User?
+    /** The Aryeo users associated with this group. */
+    public var users: [User]?
     /** Does this group represent a brokerage or an agent who belongs to a brokerage? */
     public var isBrokerageOrBrokerageAgent: Bool
-    public var socialProfiles: SocialProfiles?
-    public var agentProperties: GroupAgentProperties?
-    /** users */
-    public var users: [User]?
-    public var defaultOrderForm: OrderForm?
-    /** An array of order forms. */
-    public var orderForms: [OrderForm]?
 
-    public init(id: UUID, groupType: GroupType, name: String, logo: String? = nil, email: String? = nil, phone: String? = nil, website: String? = nil, isBrokerageOrBrokerageAgent: Bool, socialProfiles: SocialProfiles? = nil, agentProperties: GroupAgentProperties? = nil, users: [User]? = nil, defaultOrderForm: OrderForm? = nil, orderForms: [OrderForm]? = nil) {
+    public init(id: UUID, type: ModelType, name: String, email: String? = nil, phone: String? = nil, websiteUrl: String? = nil, logoUrl: String? = nil, avatarUrl: String? = nil, officeName: String? = nil, licenseNumber: String? = nil, socialProfiles: SocialProfiles? = nil, defaultOrderForm: OrderForm? = nil, orderForms: [OrderForm]? = nil, owner: User? = nil, users: [User]? = nil, isBrokerageOrBrokerageAgent: Bool) {
         self.id = id
-        self.groupType = groupType
+        self.type = type
         self.name = name
-        self.logo = logo
         self.email = email
         self.phone = phone
-        self.website = website
-        self.isBrokerageOrBrokerageAgent = isBrokerageOrBrokerageAgent
+        self.websiteUrl = websiteUrl
+        self.logoUrl = logoUrl
+        self.avatarUrl = avatarUrl
+        self.officeName = officeName
+        self.licenseNumber = licenseNumber
         self.socialProfiles = socialProfiles
-        self.agentProperties = agentProperties
-        self.users = users
         self.defaultOrderForm = defaultOrderForm
         self.orderForms = orderForms
+        self.owner = owner
+        self.users = users
+        self.isBrokerageOrBrokerageAgent = isBrokerageOrBrokerageAgent
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
-        case groupType = "group_type"
+        case type
         case name
-        case logo
         case email
         case phone
-        case website
-        case isBrokerageOrBrokerageAgent = "is_brokerage_or_brokerage_agent"
+        case websiteUrl = "website_url"
+        case logoUrl = "logo_url"
+        case avatarUrl = "avatar_url"
+        case officeName = "office_name"
+        case licenseNumber = "license_number"
         case socialProfiles = "social_profiles"
-        case agentProperties = "agent_properties"
-        case users
         case defaultOrderForm = "default_order_form"
         case orderForms = "order_forms"
+        case owner
+        case users
+        case isBrokerageOrBrokerageAgent = "is_brokerage_or_brokerage_agent"
     }
 
     // Encodable protocol methods
@@ -79,18 +91,21 @@ public struct Group: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(groupType, forKey: .groupType)
+        try container.encode(type, forKey: .type)
         try container.encode(name, forKey: .name)
-        try container.encodeIfPresent(logo, forKey: .logo)
         try container.encodeIfPresent(email, forKey: .email)
         try container.encodeIfPresent(phone, forKey: .phone)
-        try container.encodeIfPresent(website, forKey: .website)
-        try container.encode(isBrokerageOrBrokerageAgent, forKey: .isBrokerageOrBrokerageAgent)
+        try container.encodeIfPresent(websiteUrl, forKey: .websiteUrl)
+        try container.encodeIfPresent(logoUrl, forKey: .logoUrl)
+        try container.encodeIfPresent(avatarUrl, forKey: .avatarUrl)
+        try container.encodeIfPresent(officeName, forKey: .officeName)
+        try container.encodeIfPresent(licenseNumber, forKey: .licenseNumber)
         try container.encodeIfPresent(socialProfiles, forKey: .socialProfiles)
-        try container.encodeIfPresent(agentProperties, forKey: .agentProperties)
-        try container.encodeIfPresent(users, forKey: .users)
         try container.encodeIfPresent(defaultOrderForm, forKey: .defaultOrderForm)
         try container.encodeIfPresent(orderForms, forKey: .orderForms)
+        try container.encodeIfPresent(owner, forKey: .owner)
+        try container.encodeIfPresent(users, forKey: .users)
+        try container.encode(isBrokerageOrBrokerageAgent, forKey: .isBrokerageOrBrokerageAgent)
     }
 }
 

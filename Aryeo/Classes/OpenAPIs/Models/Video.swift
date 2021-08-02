@@ -14,58 +14,58 @@ import AnyCodable
 public struct Video: Codable, Hashable {
 
     public enum DisplayType: String, Codable, CaseIterable {
-        case branded = "branded"
-        case unbranded = "unbranded"
-        case both = "both"
-        case _none = "none"
+        case branded = "BRANDED"
+        case unbranded = "UNBRANDED"
+        case both = "BOTH"
+        case _none = "NONE"
     }
     public enum SourceType: String, Codable, CaseIterable {
-        case youtube = "youtube"
-        case vimeo = "vimeo"
-        case optimized = "optimized"
-        case uploaded = "uploaded"
-        case link = "link"
+        case youtube = "YOUTUBE"
+        case vimeo = "VIMEO"
+        case optimized = "OPTIMIZED"
+        case uploaded = "UPLOADED"
+        case link = "LINK"
     }
     /** ID of the video. */
-    public var id: Int
+    public var id: UUID
     /** The title of the video given by the uploading user. */
     public var title: String?
+    /** The video's runtime in seconds. */
+    public var duration: Int?
     /** The display type determines if the video is branded or unbranded (can also be none or both). This affects whether the video is displayed on branded or unbranded marketing materials such as the property website. */
     public var displayType: DisplayType
     /** The original upload source of the video, used to determine how to handle the playback_url of the video and other display properties.  */
     public var sourceType: SourceType
-    /** Thumbnail URL for the video. */
+    /** A thumbnail image URL for the video. */
     public var thumbnailUrl: String
-    /** A URL linking to the video. */
+    /** A URL linking to playback stream of the video. */
     public var playbackUrl: String
     /** A URL for downloading the video. */
     public var downloadUrl: String?
-    /** The video's runtime in seconds. */
-    public var seconds: Int?
-    /** Aryeo iFrame player URL */
+    /** A URL linking to a public viewing optimized webpage the video. */
     public var shareUrl: String?
 
-    public init(id: Int, title: String? = nil, displayType: DisplayType, sourceType: SourceType, thumbnailUrl: String, playbackUrl: String, downloadUrl: String? = nil, seconds: Int? = nil, shareUrl: String? = nil) {
+    public init(id: UUID, title: String? = nil, duration: Int? = nil, displayType: DisplayType, sourceType: SourceType, thumbnailUrl: String, playbackUrl: String, downloadUrl: String? = nil, shareUrl: String? = nil) {
         self.id = id
         self.title = title
+        self.duration = duration
         self.displayType = displayType
         self.sourceType = sourceType
         self.thumbnailUrl = thumbnailUrl
         self.playbackUrl = playbackUrl
         self.downloadUrl = downloadUrl
-        self.seconds = seconds
         self.shareUrl = shareUrl
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case title
+        case duration
         case displayType = "display_type"
         case sourceType = "source_type"
         case thumbnailUrl = "thumbnail_url"
         case playbackUrl = "playback_url"
         case downloadUrl = "download_url"
-        case seconds
         case shareUrl = "share_url"
     }
 
@@ -75,12 +75,12 @@ public struct Video: Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encodeIfPresent(title, forKey: .title)
+        try container.encodeIfPresent(duration, forKey: .duration)
         try container.encode(displayType, forKey: .displayType)
         try container.encode(sourceType, forKey: .sourceType)
         try container.encode(thumbnailUrl, forKey: .thumbnailUrl)
         try container.encode(playbackUrl, forKey: .playbackUrl)
         try container.encodeIfPresent(downloadUrl, forKey: .downloadUrl)
-        try container.encodeIfPresent(seconds, forKey: .seconds)
         try container.encodeIfPresent(shareUrl, forKey: .shareUrl)
     }
 }

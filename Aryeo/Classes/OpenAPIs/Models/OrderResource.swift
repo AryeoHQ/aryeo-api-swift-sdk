@@ -13,13 +13,17 @@ import AnyCodable
 /** An order. */
 public struct OrderResource: Codable, Hashable {
 
+    /** What was the state of the request? */
+    public var status: String
     public var data: Order?
 
-    public init(data: Order? = nil) {
+    public init(status: String, data: Order? = nil) {
+        self.status = status
         self.data = data
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case status
         case data
     }
 
@@ -27,6 +31,7 @@ public struct OrderResource: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(status, forKey: .status)
         try container.encodeIfPresent(data, forKey: .data)
     }
 }

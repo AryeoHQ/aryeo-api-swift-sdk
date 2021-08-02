@@ -13,42 +13,38 @@ import AnyCodable
 /** A record of a person on the Aryeo platform. */
 public struct User: Codable, Hashable {
 
-    /** UUID of the user. */
+    /** ID of the user. */
     public var id: UUID
-    /** Avatar. */
-    public var avatar: String?
-    /** Email. */
+    /** Email address of the user. */
     public var email: String
-    /** First name. */
+    /** First name of the user. */
     public var firstName: String?
-    /** Last name. */
+    /** Last name of the user. */
     public var lastName: String?
-    /** Timezone. */
-    public var timezone: String?
-    /** Phone number. */
+    /** A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens). */
     public var phone: String?
-    /** Describes user's relationship (access level) to a specified group. */
+    /** The avatar image URL of a user. */
+    public var avatarUrl: String?
+    /** Describes user's relationship (access level) to a specified group. Only returned if this resource is returned as a sub-resource of a group. */
     public var relationship: String?
 
-    public init(id: UUID, avatar: String? = nil, email: String, firstName: String? = nil, lastName: String? = nil, timezone: String? = nil, phone: String? = nil, relationship: String? = nil) {
+    public init(id: UUID, email: String, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, avatarUrl: String? = nil, relationship: String? = nil) {
         self.id = id
-        self.avatar = avatar
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
-        self.timezone = timezone
         self.phone = phone
+        self.avatarUrl = avatarUrl
         self.relationship = relationship
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
-        case avatar
         case email
         case firstName = "first_name"
         case lastName = "last_name"
-        case timezone
         case phone
+        case avatarUrl = "avatar_url"
         case relationship
     }
 
@@ -57,12 +53,11 @@ public struct User: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encodeIfPresent(avatar, forKey: .avatar)
         try container.encode(email, forKey: .email)
         try container.encodeIfPresent(firstName, forKey: .firstName)
         try container.encodeIfPresent(lastName, forKey: .lastName)
-        try container.encodeIfPresent(timezone, forKey: .timezone)
         try container.encodeIfPresent(phone, forKey: .phone)
+        try container.encodeIfPresent(avatarUrl, forKey: .avatarUrl)
         try container.encodeIfPresent(relationship, forKey: .relationship)
     }
 }

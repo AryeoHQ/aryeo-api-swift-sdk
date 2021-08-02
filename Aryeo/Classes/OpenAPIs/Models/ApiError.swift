@@ -13,22 +13,32 @@ import AnyCodable
 /** A generic error returned by the API. */
 public struct ApiError: Codable, Hashable {
 
+    /** What was the state of the request? */
+    public var status: String
     /** The error message. */
     public var message: String
+    /** A numeric code corresponding to the error. */
+    public var code: Int?
 
-    public init(message: String) {
+    public init(status: String, message: String, code: Int? = nil) {
+        self.status = status
         self.message = message
+        self.code = code
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case status
         case message
+        case code
     }
 
     // Encodable protocol methods
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(status, forKey: .status)
         try container.encode(message, forKey: .message)
+        try container.encodeIfPresent(code, forKey: .code)
     }
 }
 

@@ -13,17 +13,22 @@ import AnyCodable
 /** A collection of groups. */
 public struct GroupCollection: Codable, Hashable {
 
+    /** What was the state of the request? */
+    public var status: String
+    /**  */
     public var data: [Group]?
     public var meta: PaginationMeta?
     public var links: PaginationLinks?
 
-    public init(data: [Group]? = nil, meta: PaginationMeta? = nil, links: PaginationLinks? = nil) {
+    public init(status: String, data: [Group]? = nil, meta: PaginationMeta? = nil, links: PaginationLinks? = nil) {
+        self.status = status
         self.data = data
         self.meta = meta
         self.links = links
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case status
         case data
         case meta
         case links
@@ -33,6 +38,7 @@ public struct GroupCollection: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(status, forKey: .status)
         try container.encodeIfPresent(data, forKey: .data)
         try container.encodeIfPresent(meta, forKey: .meta)
         try container.encodeIfPresent(links, forKey: .links)

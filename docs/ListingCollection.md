@@ -1,9 +1,12 @@
-# MarketingMaterialTemplatePublishPayload
+# ListingCollection
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**polotnoJson** | **String** | String representation of a polotno JSON object. | [optional] 
+**status** | **String** | What was the state of the request? | 
+**data** | [Listing] |  | [optional] 
+**meta** | [**PaginationMeta**](PaginationMeta.md) |  | [optional] 
+**links** | [**PaginationLinks**](PaginationLinks.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -14,30 +14,26 @@ import AnyCodable
 public struct OrderPostPayload: Codable, Hashable {
 
     public enum FulfillmentStatus: String, Codable, CaseIterable {
-        case fulfilled = "fulfilled"
-        case unfulfilled = "unfulfilled"
+        case fulfilled = "FULFILLED"
+        case unfulfilled = "UNFULFILLED"
     }
     public enum PaymentStatus: String, Codable, CaseIterable {
-        case paid = "paid"
-        case unpaid = "unpaid"
+        case paid = "PAID"
+        case unpaid = "UNPAID"
     }
-    /** The fulfillment status of the order. */
+    /** The fulfillment status of the order. Defaults to \"UNFULFILLED\". */
     public var fulfillmentStatus: FulfillmentStatus?
-    /** The payment status of the order. */
+    /** The payment status of the order. Defaults to \"UNPAID\".  */
     public var paymentStatus: PaymentStatus?
-    /** product_items */
-    public var productItems: [ProductItem]?
 
-    public init(fulfillmentStatus: FulfillmentStatus? = nil, paymentStatus: PaymentStatus? = nil, productItems: [ProductItem]? = nil) {
+    public init(fulfillmentStatus: FulfillmentStatus? = nil, paymentStatus: PaymentStatus? = nil) {
         self.fulfillmentStatus = fulfillmentStatus
         self.paymentStatus = paymentStatus
-        self.productItems = productItems
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case fulfillmentStatus = "fulfillment_status"
         case paymentStatus = "payment_status"
-        case productItems = "product_items"
     }
 
     // Encodable protocol methods
@@ -46,7 +42,6 @@ public struct OrderPostPayload: Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(fulfillmentStatus, forKey: .fulfillmentStatus)
         try container.encodeIfPresent(paymentStatus, forKey: .paymentStatus)
-        try container.encodeIfPresent(productItems, forKey: .productItems)
     }
 }
 

@@ -15,11 +15,12 @@ open class VendorsAPI {
     /**
      Get vendors available to a group.
      
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getVendors(apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: GroupCollection?, _ error: Error?) -> Void)) {
-        getVendorsWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    open class func getVendors(include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: GroupCollection?, _ error: Error?) -> Void)) {
+        getVendorsWithRequestBuilder(include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -35,38 +36,41 @@ open class VendorsAPI {
      - Get vendors available to a group.
      - BASIC:
        - type: http
-       - name: JWT
+       - name: Token
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - returns: RequestBuilder<GroupCollection> 
      */
-    open class func getVendorsWithRequestBuilder() -> RequestBuilder<GroupCollection> {
-        let path = "/vendors"
-        let URLString = Aryeo.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func getVendorsWithRequestBuilder(include: String? = nil) -> RequestBuilder<GroupCollection> {
+        let localVariablePath = "/vendors"
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "include": include?.encodeToJSON(),
+        ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<GroupCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GroupCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
-     Get vendors that can be added to the group's vendor list.
+     Get vendors available to a group.
      
-     - parameter query: (query) A search query. (optional)
-     - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
-     - parameter page: (query) The requested page. Defaults to 1. (optional)
+     - parameter vendorId: (path) ID of the group that is associated as a vendor. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getVendorsSearch(query: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: GroupCollection?, _ error: Error?) -> Void)) {
-        getVendorsSearchWithRequestBuilder(query: query, perPage: perPage, page: page).execute(apiResponseQueue) { result -> Void in
+    open class func getVendorsId(vendorId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: GroupResource?, _ error: Error?) -> Void)) {
+        getVendorsIdWithRequestBuilder(vendorId: vendorId, include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -77,37 +81,37 @@ open class VendorsAPI {
     }
 
     /**
-     Get vendors that can be added to the group's vendor list.
-     - GET /vendors/search
-     - Get vendors that can be added to the group's vendor list, excluding those already available to a group. 
+     Get vendors available to a group.
+     - GET /vendors/{vendor_id}
+     - Get information about a vendor.
      - BASIC:
        - type: http
-       - name: JWT
-     - parameter query: (query) A search query. (optional)
-     - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
-     - parameter page: (query) The requested page. Defaults to 1. (optional)
-     - returns: RequestBuilder<GroupCollection> 
+       - name: Token
+     - parameter vendorId: (path) ID of the group that is associated as a vendor. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
+     - returns: RequestBuilder<GroupResource> 
      */
-    open class func getVendorsSearchWithRequestBuilder(query: String? = nil, perPage: String? = nil, page: String? = nil) -> RequestBuilder<GroupCollection> {
-        let path = "/vendors/search"
-        let URLString = Aryeo.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func getVendorsIdWithRequestBuilder(vendorId: UUID, include: String? = nil) -> RequestBuilder<GroupResource> {
+        var localVariablePath = "/vendors/{vendor_id}"
+        let vendorIdPreEscape = "\(APIHelper.mapValueToPathItem(vendorId))"
+        let vendorIdPostEscape = vendorIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{vendor_id}", with: vendorIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "query": query?.encodeToJSON(),
-            "per_page": perPage?.encodeToJSON(),
-            "page": page?.encodeToJSON(),
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "include": include?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<GroupCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GroupResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 }

@@ -10,69 +10,132 @@ import Foundation
 import AnyCodable
 #endif
 
-/** A real-estate property. */
+/** A real estate listing. */
 public struct Listing: Codable, Hashable {
 
-    public enum DeliveryStatus: String, Codable, CaseIterable {
-        case delivered = "delivered"
-        case undelivered = "undelivered"
+    public enum ModelType: String, Codable, CaseIterable {
+        case businessOpportunity = "BUSINESS_OPPORTUNITY"
+        case commercialLease = "COMMERCIAL_LEASE"
+        case commercialSale = "COMMERCIAL_SALE"
+        case farm = "FARM"
+        case land = "LAND"
+        case manufacturedInPark = "MANUFACTURED_IN_PARK"
+        case residential = "RESIDENTIAL"
+        case residentialIncome = "RESIDENTIAL_INCOME"
+        case residentialLease = "RESIDENTIAL_LEASE"
+    }
+    public enum SubType: String, Codable, CaseIterable {
+        case apartment = "APARTMENT"
+        case condominium = "CONDOMINIUM"
+        case duplex = "DUPLEX"
+        case farm = "FARM"
+        case singleFamilyResidence = "SINGLE_FAMILY_RESIDENCE"
+        case timeshare = "TIMESHARE"
+        case townhouse = "TOWNHOUSE"
+        case office = "OFFICE"
+    }
+    public enum Status: String, Codable, CaseIterable {
+        case draft = "DRAFT"
+        case comingSoon = "COMING_SOON"
+        case forSale = "FOR_SALE"
+        case forLease = "FOR_LEASE"
+        case pendingSale = "PENDING_SALE"
+        case pendingLease = "PENDING_LEASE"
+        case sold = "SOLD"
+        case leased = "LEASED"
+        case offMarket = "OFF_MARKET"
+    }
+    public enum StandardStatus: String, Codable, CaseIterable {
+        case active = "ACTIVE"
+        case activeUnderContract = "ACTIVE_UNDER_CONTRACT"
+        case canceled = "CANCELED"
+        case closed = "CLOSED"
+        case comingSoon = "COMING_SOON"
+        case delete = "DELETE"
+        case expired = "EXPIRED"
+        case hold = "HOLD"
+        case incomplete = "INCOMPLETE"
+        case pending = "PENDING"
+        case withdrawn = "WITHDRAWN"
     }
     /** ID of the listing. */
     public var id: UUID
-    public var address: PartialAddress
-    /** Has this listing been delivered? */
-    public var deliveryStatus: DeliveryStatus
-    /** Thumbnail URL for the listing. */
-    public var thumbnailUrl: String?
-    public var agent: Group?
-    public var coAgent: Group?
+    public var address: Address
+    /** The identifier for a listing on its local MLS.  */
+    public var mlsNumber: String?
+    /** General type of the listing, primarily categorizing its use case. Examples include residential and commercial.  */
+    public var type: ModelType?
+    /** Further specifies the listing type. Examples include family residence and condominium. */
+    public var subType: SubType?
+    /** Local, regional, or otherwise custom status for the listing used by the parties involved in the listing transaction. While variable, these statuses are typically mapped to the listing's standard status. */
+    public var status: Status?
+    /** The status of the listing as it reflects the state of the contract between the listing agent and seller or an agreement with a buyer, including Active, Active Under Contract, Canceled, Closed, Expired, Pending, and Withdrawn. */
+    public var standardStatus: StandardStatus?
+    /** Description of the selling points of the building and/or land for sale.  */
+    public var description: String?
+    public var lot: ListingLot?
+    public var building: ListingBuilding?
+    public var price: ListingPrice?
+    public var listAgent: Group?
+    public var coListAgent: Group?
     /** images */
     public var images: [Image]?
     /** videos */
     public var videos: [Video]?
     /** floor_plans */
     public var floorPlans: [FloorPlan]?
-    public var propertyWebsites: PropertyWebsites?
     /** interactive_content */
     public var interactiveContent: [InteractiveContent]?
-    public var propertyDetails: PropertyDetails?
-    /** Are downloads enabled for this listing? */
-    public var downloadsEnabled: Bool
+    public var propertyWebsite: PropertyWebsite?
     /** orders */
     public var orders: [Order]?
+    /** Are downloads enabled for this listing? */
+    public var downloadsEnabled: Bool
 
-    public init(id: UUID, address: PartialAddress, deliveryStatus: DeliveryStatus, thumbnailUrl: String? = nil, agent: Group? = nil, coAgent: Group? = nil, images: [Image]? = nil, videos: [Video]? = nil, floorPlans: [FloorPlan]? = nil, propertyWebsites: PropertyWebsites? = nil, interactiveContent: [InteractiveContent]? = nil, propertyDetails: PropertyDetails? = nil, downloadsEnabled: Bool, orders: [Order]? = nil) {
+    public init(id: UUID, address: Address, mlsNumber: String? = nil, type: ModelType? = nil, subType: SubType? = nil, status: Status? = nil, standardStatus: StandardStatus? = nil, description: String? = nil, lot: ListingLot? = nil, building: ListingBuilding? = nil, price: ListingPrice? = nil, listAgent: Group? = nil, coListAgent: Group? = nil, images: [Image]? = nil, videos: [Video]? = nil, floorPlans: [FloorPlan]? = nil, interactiveContent: [InteractiveContent]? = nil, propertyWebsite: PropertyWebsite? = nil, orders: [Order]? = nil, downloadsEnabled: Bool) {
         self.id = id
         self.address = address
-        self.deliveryStatus = deliveryStatus
-        self.thumbnailUrl = thumbnailUrl
-        self.agent = agent
-        self.coAgent = coAgent
+        self.mlsNumber = mlsNumber
+        self.type = type
+        self.subType = subType
+        self.status = status
+        self.standardStatus = standardStatus
+        self.description = description
+        self.lot = lot
+        self.building = building
+        self.price = price
+        self.listAgent = listAgent
+        self.coListAgent = coListAgent
         self.images = images
         self.videos = videos
         self.floorPlans = floorPlans
-        self.propertyWebsites = propertyWebsites
         self.interactiveContent = interactiveContent
-        self.propertyDetails = propertyDetails
-        self.downloadsEnabled = downloadsEnabled
+        self.propertyWebsite = propertyWebsite
         self.orders = orders
+        self.downloadsEnabled = downloadsEnabled
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case address
-        case deliveryStatus = "delivery_status"
-        case thumbnailUrl = "thumbnail_url"
-        case agent
-        case coAgent = "co_agent"
+        case mlsNumber = "mls_number"
+        case type
+        case subType = "sub_type"
+        case status
+        case standardStatus = "standard_status"
+        case description
+        case lot
+        case building
+        case price
+        case listAgent = "list_agent"
+        case coListAgent = "co_list_agent"
         case images
         case videos
         case floorPlans = "floor_plans"
-        case propertyWebsites = "property_websites"
         case interactiveContent = "interactive_content"
-        case propertyDetails = "property_details"
-        case downloadsEnabled = "downloads_enabled"
+        case propertyWebsite = "property_website"
         case orders
+        case downloadsEnabled = "downloads_enabled"
     }
 
     // Encodable protocol methods
@@ -81,18 +144,24 @@ public struct Listing: Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(address, forKey: .address)
-        try container.encode(deliveryStatus, forKey: .deliveryStatus)
-        try container.encodeIfPresent(thumbnailUrl, forKey: .thumbnailUrl)
-        try container.encodeIfPresent(agent, forKey: .agent)
-        try container.encodeIfPresent(coAgent, forKey: .coAgent)
+        try container.encodeIfPresent(mlsNumber, forKey: .mlsNumber)
+        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(subType, forKey: .subType)
+        try container.encodeIfPresent(status, forKey: .status)
+        try container.encodeIfPresent(standardStatus, forKey: .standardStatus)
+        try container.encodeIfPresent(description, forKey: .description)
+        try container.encodeIfPresent(lot, forKey: .lot)
+        try container.encodeIfPresent(building, forKey: .building)
+        try container.encodeIfPresent(price, forKey: .price)
+        try container.encodeIfPresent(listAgent, forKey: .listAgent)
+        try container.encodeIfPresent(coListAgent, forKey: .coListAgent)
         try container.encodeIfPresent(images, forKey: .images)
         try container.encodeIfPresent(videos, forKey: .videos)
         try container.encodeIfPresent(floorPlans, forKey: .floorPlans)
-        try container.encodeIfPresent(propertyWebsites, forKey: .propertyWebsites)
         try container.encodeIfPresent(interactiveContent, forKey: .interactiveContent)
-        try container.encodeIfPresent(propertyDetails, forKey: .propertyDetails)
-        try container.encode(downloadsEnabled, forKey: .downloadsEnabled)
+        try container.encodeIfPresent(propertyWebsite, forKey: .propertyWebsite)
         try container.encodeIfPresent(orders, forKey: .orders)
+        try container.encode(downloadsEnabled, forKey: .downloadsEnabled)
     }
 }
 

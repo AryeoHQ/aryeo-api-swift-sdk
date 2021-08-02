@@ -10,7 +10,7 @@ import Foundation
 import AnyCodable
 #endif
 
-/** Details for a real estate agent. */
+/** External profile URLs for an agent or brokerage group. */
 public struct SocialProfiles: Codable, Hashable {
 
     /** URL for Facebook. */

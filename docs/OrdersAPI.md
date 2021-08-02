@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 # **getOrders**
 ```swift
-    open class func getOrders(completion: @escaping (_ data: OrderCollection?, _ error: Error?) -> Void)
+    open class func getOrders(sort: String? = nil, perPage: String? = nil, page: String? = nil, completion: @escaping (_ data: OrderCollection?, _ error: Error?) -> Void)
 ```
 
 Get orders available to a group.
@@ -22,9 +22,12 @@ Get orders of a group.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
+let sort = "sort_example" // String | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-created_at`. (optional)
+let perPage = "perPage_example" // String | The number of items per page. Defaults to 25. (optional)
+let page = "page_example" // String | The requested page. Defaults to 1. (optional)
 
 // Get orders available to a group.
-OrdersAPI.getOrders() { (response, error) in
+OrdersAPI.getOrders(sort: sort, perPage: perPage, page: page) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -37,7 +40,12 @@ OrdersAPI.getOrders() { (response, error) in
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sort** | **String** | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. | [optional] 
+ **perPage** | **String** | The number of items per page. Defaults to 25. | [optional] 
+ **page** | **String** | The requested page. Defaults to 1. | [optional] 
 
 ### Return type
 
@@ -45,7 +53,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[JWT](../README.md#JWT)
+[Token](../README.md#Token)
 
 ### HTTP request headers
 
@@ -68,7 +76,7 @@ Create an order.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
-let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", paymentStatus: "paymentStatus_example", productItems: [ProductItem(id: 123)]) // OrderPostPayload |  (optional)
+let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", paymentStatus: "paymentStatus_example") // OrderPostPayload | OrderPostPayload (optional)
 
 // Create an order.
 OrdersAPI.postOrders(orderPostPayload: orderPostPayload) { (response, error) in
@@ -87,7 +95,7 @@ OrdersAPI.postOrders(orderPostPayload: orderPostPayload) { (response, error) in
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **orderPostPayload** | [**OrderPostPayload**](OrderPostPayload.md) |  | [optional] 
+ **orderPostPayload** | [**OrderPostPayload**](OrderPostPayload.md) | OrderPostPayload | [optional] 
 
 ### Return type
 
@@ -95,7 +103,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[JWT](../README.md#JWT)
+[Token](../README.md#Token)
 
 ### HTTP request headers
 

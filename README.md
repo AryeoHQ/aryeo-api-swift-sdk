@@ -29,12 +29,12 @@ import Foundation
 import Aryeo
 
 let jwt = "API_KEY"
-let id = UUID(uuidString: "UUID")!
+let uuid = UUID(uuidString: "UUID")!
 
 let dispatchGroup = DispatchGroup()
 dispatchGroup.enter()
 
-ListingsAPI.getListingsIdWithRequestBuilder(id: id)
+ListingsAPI.getListingsIdWithRequestBuilder(uuid: uuid)
     .addHeader(name: "Accept", value: "application/json")
     .addHeader(name: "Authorization", value: "Bearer \(jwt)")
     .execute(Aryeo.apiResponseQueue) { result -> Void in
@@ -62,29 +62,30 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ListingsAPI* | [**getListings**](docs/ListingsAPI.md#getlistings) | **GET** /listings | Get the listings available to a group.
-*ListingsAPI* | [**getListingsId**](docs/ListingsAPI.md#getlistingsid) | **GET** /listings/{id} | Get information about a listing.
-*MarketingMaterialsAPI* | [**putMarketingMaterialsTemplatesUuidPublish**](docs/MarketingMaterialsAPI.md#putmarketingmaterialstemplatesuuidpublish) | **PUT** /marketing-materials/templates/{uuid}/publish | Publish a marketing material template.
-*MarketingMaterialsAPI* | [**putMarketingMaterialsUuidPublish**](docs/MarketingMaterialsAPI.md#putmarketingmaterialsuuidpublish) | **PUT** /marketing-materials/{uuid}/publish | Publish a marketing material.
+*ListingsAPI* | [**getListingsId**](docs/ListingsAPI.md#getlistingsid) | **GET** /listings/{listing_id} | Get information about a listing.
 *OrdersAPI* | [**getOrders**](docs/OrdersAPI.md#getorders) | **GET** /orders | Get orders available to a group.
 *OrdersAPI* | [**postOrders**](docs/OrdersAPI.md#postorders) | **POST** /orders | Create an order.
 *VendorsAPI* | [**getVendors**](docs/VendorsAPI.md#getvendors) | **GET** /vendors | Get vendors available to a group.
-*VendorsAPI* | [**getVendorsSearch**](docs/VendorsAPI.md#getvendorssearch) | **GET** /vendors/search | Get vendors that can be added to the group&#39;s vendor list.
+*VendorsAPI* | [**getVendorsId**](docs/VendorsAPI.md#getvendorsid) | **GET** /vendors/{vendor_id} | Get vendors available to a group.
 
 
 ## Documentation For Models
 
+ - [Address](docs/Address.md)
  - [ApiError](docs/ApiError.md)
- - [Currency](docs/Currency.md)
+ - [ApiFail](docs/ApiFail.md)
  - [FloorPlan](docs/FloorPlan.md)
  - [Group](docs/Group.md)
- - [GroupAgentProperties](docs/GroupAgentProperties.md)
  - [GroupCollection](docs/GroupCollection.md)
+ - [GroupResource](docs/GroupResource.md)
  - [Image](docs/Image.md)
  - [InteractiveContent](docs/InteractiveContent.md)
  - [Listing](docs/Listing.md)
+ - [ListingBuilding](docs/ListingBuilding.md)
+ - [ListingCollection](docs/ListingCollection.md)
+ - [ListingLot](docs/ListingLot.md)
+ - [ListingPrice](docs/ListingPrice.md)
  - [ListingResource](docs/ListingResource.md)
- - [MarketingMaterialPublishPayload](docs/MarketingMaterialPublishPayload.md)
- - [MarketingMaterialTemplatePublishPayload](docs/MarketingMaterialTemplatePublishPayload.md)
  - [Order](docs/Order.md)
  - [OrderCollection](docs/OrderCollection.md)
  - [OrderForm](docs/OrderForm.md)
@@ -92,13 +93,7 @@ Class | Method | HTTP request | Description
  - [OrderResource](docs/OrderResource.md)
  - [PaginationLinks](docs/PaginationLinks.md)
  - [PaginationMeta](docs/PaginationMeta.md)
- - [PartialAddress](docs/PartialAddress.md)
- - [PartialGroup](docs/PartialGroup.md)
- - [PartialListing](docs/PartialListing.md)
- - [PartialListingCollection](docs/PartialListingCollection.md)
- - [ProductItem](docs/ProductItem.md)
- - [PropertyDetails](docs/PropertyDetails.md)
- - [PropertyWebsites](docs/PropertyWebsites.md)
+ - [PropertyWebsite](docs/PropertyWebsite.md)
  - [SocialProfiles](docs/SocialProfiles.md)
  - [User](docs/User.md)
  - [Video](docs/Video.md)
@@ -107,7 +102,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-## JWT
+## Token
 
 - **Type**: HTTP basic authentication
 

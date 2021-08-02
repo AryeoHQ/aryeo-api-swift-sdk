@@ -13,39 +13,46 @@ import AnyCodable
 open class ListingsAPI {
 
     /**
-     * enum for parameter status
+     * enum for parameter filterStatus
      */
-    public enum Status_getListings: String, CaseIterable {
-        case offMarket = "off_market"
-        case pendingLease = "pending_lease"
-        case vacationRental = "vacation_rental"
-        case leased = "leased"
-        case forSale = "for_sale"
-        case draft = "draft"
-        case comingSoon = "coming_soon"
-        case soldm = "soldm"
+    public enum FilterStatus_getListings: String, CaseIterable {
+        case draft = "DRAFT"
+        case comingSoon = "COMING_SOON"
+        case forLease = "FOR_LEASE"
+        case forSale = "FOR_SALE"
+        case pendingSale = "PENDING_SALE"
+        case pendingLease = "PENDING_LEASE"
+        case sold = "SOLD"
+        case leased = "LEASED"
+        case offMarket = "OFF_MARKET"
         case null = "null"
-        case forLease = "for_lease"
-        case pendingSale = "pending_sale"
-        case priceReduction = "price_reduction"
-        case sold = "sold"
     }
 
     /**
      Get the listings available to a group.
      
-     - parameter query: (query) A search query. (optional)
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
+     - parameter filterSearch: (query) Return listings that have fields matching this term. (optional)
+     - parameter filterAddress: (query) Return listings that have an address matching this term. (optional)
+     - parameter filterListAgent: (query) Return listings that have a listing agent or co-listing agent matching this term. (optional)
+     - parameter filterStatus: (query) Return listings that have a certain status. (optional)
+     - parameter filterActive: (query) Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;).  (optional)
+     - parameter filterPriceGte: (query) Return listings where the price field is greater than or equal to this value. (optional)
+     - parameter filterPriceLte: (query) Return listings where the price field is less than or equal to this value. (optional)
+     - parameter filterSquareFeetGte: (query) Return listings where the square feet field is greater than or equal to this value. (optional)
+     - parameter filterSquareFeetLte: (query) Return listings where the square feet field is less than or equal to this value. (optional)
+     - parameter filterBedroomsGte: (query) Return listings where the bedrooms field is greater than or equal to this value. (optional)
+     - parameter filterBedroomsLte: (query) Return listings where the bedrooms field is less than or equal to this value. (optional)
+     - parameter filterBathroomsGte: (query) Return listings where the bathrooms field is greater than or equal to this value. (optional)
+     - parameter filterBathroomsLte: (query) Return listings where the bathrooms field is less than or equal to this value. (optional)
+     - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
      - parameter page: (query) The requested page. Defaults to 1. (optional)
-     - parameter status: (query) The status you want to scope down to, example sold,  coming_soon,  for_sale, sold (optional)
-     - parameter price: (query) The price value and greater will be returned. (optional)
-     - parameter bathrooms: (query) Number of bathrooms minimum. (optional)
-     - parameter bedrooms: (query) Number of bedrooms minimum. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getListings(query: String? = nil, perPage: String? = nil, page: String? = nil, status: Status_getListings? = nil, price: Int? = nil, bathrooms: Double? = nil, bedrooms: Int? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: PartialListingCollection?, _ error: Error?) -> Void)) {
-        getListingsWithRequestBuilder(query: query, perPage: perPage, page: page, status: status, price: price, bathrooms: bathrooms, bedrooms: bedrooms).execute(apiResponseQueue) { result -> Void in
+    open class func getListings(include: String? = nil, filterSearch: String? = nil, filterAddress: String? = nil, filterListAgent: String? = nil, filterStatus: FilterStatus_getListings? = nil, filterActive: Bool? = nil, filterPriceGte: Double? = nil, filterPriceLte: Double? = nil, filterSquareFeetGte: Double? = nil, filterSquareFeetLte: Double? = nil, filterBedroomsGte: Int? = nil, filterBedroomsLte: Int? = nil, filterBathroomsGte: Double? = nil, filterBathroomsLte: Double? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ListingCollection?, _ error: Error?) -> Void)) {
+        getListingsWithRequestBuilder(include: include, filterSearch: filterSearch, filterAddress: filterAddress, filterListAgent: filterListAgent, filterStatus: filterStatus, filterActive: filterActive, filterPriceGte: filterPriceGte, filterPriceLte: filterPriceLte, filterSquareFeetGte: filterSquareFeetGte, filterSquareFeetLte: filterSquareFeetLte, filterBedroomsGte: filterBedroomsGte, filterBedroomsLte: filterBedroomsLte, filterBathroomsGte: filterBathroomsGte, filterBathroomsLte: filterBathroomsLte, sort: sort, perPage: perPage, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -61,52 +68,73 @@ open class ListingsAPI {
      - Get the listings available to a group.
      - BASIC:
        - type: http
-       - name: JWT
-     - parameter query: (query) A search query. (optional)
+       - name: Token
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
+     - parameter filterSearch: (query) Return listings that have fields matching this term. (optional)
+     - parameter filterAddress: (query) Return listings that have an address matching this term. (optional)
+     - parameter filterListAgent: (query) Return listings that have a listing agent or co-listing agent matching this term. (optional)
+     - parameter filterStatus: (query) Return listings that have a certain status. (optional)
+     - parameter filterActive: (query) Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;).  (optional)
+     - parameter filterPriceGte: (query) Return listings where the price field is greater than or equal to this value. (optional)
+     - parameter filterPriceLte: (query) Return listings where the price field is less than or equal to this value. (optional)
+     - parameter filterSquareFeetGte: (query) Return listings where the square feet field is greater than or equal to this value. (optional)
+     - parameter filterSquareFeetLte: (query) Return listings where the square feet field is less than or equal to this value. (optional)
+     - parameter filterBedroomsGte: (query) Return listings where the bedrooms field is greater than or equal to this value. (optional)
+     - parameter filterBedroomsLte: (query) Return listings where the bedrooms field is less than or equal to this value. (optional)
+     - parameter filterBathroomsGte: (query) Return listings where the bathrooms field is greater than or equal to this value. (optional)
+     - parameter filterBathroomsLte: (query) Return listings where the bathrooms field is less than or equal to this value. (optional)
+     - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
      - parameter page: (query) The requested page. Defaults to 1. (optional)
-     - parameter status: (query) The status you want to scope down to, example sold,  coming_soon,  for_sale, sold (optional)
-     - parameter price: (query) The price value and greater will be returned. (optional)
-     - parameter bathrooms: (query) Number of bathrooms minimum. (optional)
-     - parameter bedrooms: (query) Number of bedrooms minimum. (optional)
-     - returns: RequestBuilder<PartialListingCollection> 
+     - returns: RequestBuilder<ListingCollection> 
      */
-    open class func getListingsWithRequestBuilder(query: String? = nil, perPage: String? = nil, page: String? = nil, status: Status_getListings? = nil, price: Int? = nil, bathrooms: Double? = nil, bedrooms: Int? = nil) -> RequestBuilder<PartialListingCollection> {
-        let path = "/listings"
-        let URLString = Aryeo.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func getListingsWithRequestBuilder(include: String? = nil, filterSearch: String? = nil, filterAddress: String? = nil, filterListAgent: String? = nil, filterStatus: FilterStatus_getListings? = nil, filterActive: Bool? = nil, filterPriceGte: Double? = nil, filterPriceLte: Double? = nil, filterSquareFeetGte: Double? = nil, filterSquareFeetLte: Double? = nil, filterBedroomsGte: Int? = nil, filterBedroomsLte: Int? = nil, filterBathroomsGte: Double? = nil, filterBathroomsLte: Double? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil) -> RequestBuilder<ListingCollection> {
+        let localVariablePath = "/listings"
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        var urlComponents = URLComponents(string: URLString)
-        urlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
-            "query": query?.encodeToJSON(),
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "include": include?.encodeToJSON(),
+            "filter[search]": filterSearch?.encodeToJSON(),
+            "filter[address]": filterAddress?.encodeToJSON(),
+            "filter[list_agent]": filterListAgent?.encodeToJSON(),
+            "filter[status]": filterStatus?.encodeToJSON(),
+            "filter[active]": filterActive?.encodeToJSON(),
+            "filter[price_gte]": filterPriceGte?.encodeToJSON(),
+            "filter[price_lte]": filterPriceLte?.encodeToJSON(),
+            "filter[square_feet_gte]": filterSquareFeetGte?.encodeToJSON(),
+            "filter[square_feet_lte]": filterSquareFeetLte?.encodeToJSON(),
+            "filter[bedrooms_gte]": filterBedroomsGte?.encodeToJSON(),
+            "filter[bedrooms_lte]": filterBedroomsLte?.encodeToJSON(),
+            "filter[bathrooms_gte]": filterBathroomsGte?.encodeToJSON(),
+            "filter[bathrooms_lte]": filterBathroomsLte?.encodeToJSON(),
+            "sort": sort?.encodeToJSON(),
             "per_page": perPage?.encodeToJSON(),
             "page": page?.encodeToJSON(),
-            "status": status?.encodeToJSON(),
-            "price": price?.encodeToJSON(),
-            "bathrooms": bathrooms?.encodeToJSON(),
-            "bedrooms": bedrooms?.encodeToJSON(),
         ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<PartialListingCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ListingCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Get information about a listing.
      
-     - parameter id: (path) The UUID of a listing. 
+     - parameter listingId: (path) The ID of a listing. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getListingsId(id: UUID, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ListingResource?, _ error: Error?) -> Void)) {
-        getListingsIdWithRequestBuilder(id: id).execute(apiResponseQueue) { result -> Void in
+    open class func getListingsId(listingId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ListingResource?, _ error: Error?) -> Void)) {
+        getListingsIdWithRequestBuilder(listingId: listingId, include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -118,32 +146,36 @@ open class ListingsAPI {
 
     /**
      Get information about a listing.
-     - GET /listings/{id}
+     - GET /listings/{listing_id}
      - Get information about a listing.
      - BASIC:
        - type: http
-       - name: JWT
-     - parameter id: (path) The UUID of a listing. 
+       - name: Token
+     - parameter listingId: (path) The ID of a listing. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - returns: RequestBuilder<ListingResource> 
      */
-    open class func getListingsIdWithRequestBuilder(id: UUID) -> RequestBuilder<ListingResource> {
-        var path = "/listings/{id}"
-        let idPreEscape = "\(APIHelper.mapValueToPathItem(id))"
-        let idPostEscape = idPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{id}", with: idPostEscape, options: .literal, range: nil)
-        let URLString = Aryeo.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func getListingsIdWithRequestBuilder(listingId: UUID, include: String? = nil) -> RequestBuilder<ListingResource> {
+        var localVariablePath = "/listings/{listing_id}"
+        let listingIdPreEscape = "\(APIHelper.mapValueToPathItem(listingId))"
+        let listingIdPostEscape = listingIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{listing_id}", with: listingIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "include": include?.encodeToJSON(),
+        ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<ListingResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ListingResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 }

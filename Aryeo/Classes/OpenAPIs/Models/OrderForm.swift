@@ -15,20 +15,20 @@ public struct OrderForm: Codable, Hashable {
 
     /** UUID of the order form. */
     public var id: UUID
-    /** The name of the order form. */
-    public var name: String?
+    /** The title or name of the order form. */
+    public var title: String?
     /** A URL of a publicly-accessible webpage for this order form. */
     public var url: String
 
-    public init(id: UUID, name: String? = nil, url: String) {
+    public init(id: UUID, title: String? = nil, url: String) {
         self.id = id
-        self.name = name
+        self.title = title
         self.url = url
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
-        case name
+        case title
         case url
     }
 
@@ -37,7 +37,7 @@ public struct OrderForm: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(title, forKey: .title)
         try container.encode(url, forKey: .url)
     }
 }

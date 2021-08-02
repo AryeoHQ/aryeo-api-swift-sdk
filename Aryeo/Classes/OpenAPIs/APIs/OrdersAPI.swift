@@ -15,11 +15,14 @@ open class OrdersAPI {
     /**
      Get orders available to a group.
      
+     - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
+     - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
+     - parameter page: (query) The requested page. Defaults to 1. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getOrders(apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: OrderCollection?, _ error: Error?) -> Void)) {
-        getOrdersWithRequestBuilder().execute(apiResponseQueue) { result -> Void in
+    open class func getOrders(sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: OrderCollection?, _ error: Error?) -> Void)) {
+        getOrdersWithRequestBuilder(sort: sort, perPage: perPage, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -35,31 +38,39 @@ open class OrdersAPI {
      - Get orders of a group.
      - BASIC:
        - type: http
-       - name: JWT
+       - name: Token
+     - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
+     - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
+     - parameter page: (query) The requested page. Defaults to 1. (optional)
      - returns: RequestBuilder<OrderCollection> 
      */
-    open class func getOrdersWithRequestBuilder() -> RequestBuilder<OrderCollection> {
-        let path = "/orders"
-        let URLString = Aryeo.basePath + path
-        let parameters: [String: Any]? = nil
+    open class func getOrdersWithRequestBuilder(sort: String? = nil, perPage: String? = nil, page: String? = nil) -> RequestBuilder<OrderCollection> {
+        let localVariablePath = "/orders"
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
 
-        let urlComponents = URLComponents(string: URLString)
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "sort": sort?.encodeToJSON(),
+            "per_page": perPage?.encodeToJSON(),
+            "page": page?.encodeToJSON(),
+        ])
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<OrderCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<OrderCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 
     /**
      Create an order.
      
-     - parameter orderPostPayload: (body)  (optional)
+     - parameter orderPostPayload: (body) OrderPostPayload (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -80,25 +91,25 @@ open class OrdersAPI {
      - Create an order.
      - BASIC:
        - type: http
-       - name: JWT
-     - parameter orderPostPayload: (body)  (optional)
+       - name: Token
+     - parameter orderPostPayload: (body) OrderPostPayload (optional)
      - returns: RequestBuilder<OrderResource> 
      */
     open class func postOrdersWithRequestBuilder(orderPostPayload: OrderPostPayload? = nil) -> RequestBuilder<OrderResource> {
-        let path = "/orders"
-        let URLString = Aryeo.basePath + path
-        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: orderPostPayload)
+        let localVariablePath = "/orders"
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: orderPostPayload)
 
-        let urlComponents = URLComponents(string: URLString)
+        let localVariableUrlComponents = URLComponents(string: localVariableURLString)
 
-        let nillableHeaders: [String: Any?] = [
+        let localVariableNillableHeaders: [String: Any?] = [
             :
         ]
 
-        let headerParameters = APIHelper.rejectNilHeaders(nillableHeaders)
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let requestBuilder: RequestBuilder<OrderResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<OrderResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (urlComponents?.string ?? URLString), parameters: parameters, headers: headerParameters)
+        return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
 }
