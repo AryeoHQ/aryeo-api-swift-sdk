@@ -13,7 +13,7 @@ import AnyCodable
 /** A scale diagram of the arrangement of a building. */
 public struct FloorPlan: Codable, Hashable {
 
-    /** ID of the floor plan. */
+    /** ID of the floor plan. UUID Version 4. */
     public var id: UUID
     /** A URL for the original, full-resolution version of the floor plan. Useful for downloading. */
     public var originalUrl: String

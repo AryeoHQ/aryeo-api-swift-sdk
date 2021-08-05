@@ -128,7 +128,7 @@ open class ListingsAPI {
     /**
      Get information about a listing.
      
-     - parameter listingId: (path) The ID of a listing. 
+     - parameter listingId: (path) The ID of a listing. UUID Version 4. 
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
@@ -151,7 +151,7 @@ open class ListingsAPI {
      - BASIC:
        - type: http
        - name: Token
-     - parameter listingId: (path) The ID of a listing. 
+     - parameter listingId: (path) The ID of a listing. UUID Version 4. 
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - returns: RequestBuilder<ListingResource> 
      */

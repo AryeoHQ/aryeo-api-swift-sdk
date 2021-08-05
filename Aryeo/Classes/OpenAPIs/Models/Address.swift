@@ -13,7 +13,7 @@ import AnyCodable
 /** A street address and additional metadata about a location. */
 public struct Address: Codable, Hashable {
 
-    /** ID of the address. */
+    /** ID of the address. UUID Version 4. */
     public var id: UUID
     /** The geographic latitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol. */
     public var latitude: Double

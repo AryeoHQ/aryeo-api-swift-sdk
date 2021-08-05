@@ -22,7 +22,7 @@ public struct InteractiveContent: Codable, Hashable {
         case matterport = "MATTERPORT"
         case other = "OTHER"
     }
-    /** ID of the content. */
+    /** ID of the content. UUID Version 4. */
     public var id: UUID
     /** Is the content branded, unbranded, or both? */
     public var displayType: DisplayType

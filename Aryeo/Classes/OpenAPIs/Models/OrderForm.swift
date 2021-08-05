@@ -13,7 +13,7 @@ import AnyCodable
 /** A mechanism for placing new orders on the Aryeo platform.  */
 public struct OrderForm: Codable, Hashable {
 
-    /** UUID of the order form. */
+    /** ID of the order form. UUID Version 4. */
     public var id: UUID
     /** The title or name of the order form. */
     public var title: String?

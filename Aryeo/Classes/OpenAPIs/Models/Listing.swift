@@ -58,7 +58,7 @@ public struct Listing: Codable, Hashable {
         case pending = "PENDING"
         case withdrawn = "WITHDRAWN"
     }
-    /** ID of the listing. */
+    /** ID of the listing. UUID Version 4. */
     public var id: UUID
     public var address: Address
     /** The identifier for a listing on its local MLS.  */

@@ -26,7 +26,7 @@ public struct Video: Codable, Hashable {
         case uploaded = "UPLOADED"
         case link = "LINK"
     }
-    /** ID of the video. */
+    /** ID of the video. UUID Version 4. */
     public var id: UUID
     /** The title of the video given by the uploading user. */
     public var title: String?

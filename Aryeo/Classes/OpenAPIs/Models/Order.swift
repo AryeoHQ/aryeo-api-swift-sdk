@@ -31,7 +31,7 @@ public struct Order: Codable, Hashable {
         case nzd = "NZD"
         case zar = "ZAR"
     }
-    /** ID of the order. */
+    /** ID of the order. UUID Version 4. */
     public var id: UUID
     /** A vanity id used for internal tracking of orders for a given vendor.  */
     public var number: Int

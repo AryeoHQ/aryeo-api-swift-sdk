@@ -13,7 +13,7 @@ import AnyCodable
 /** A visual representation of something. */
 public struct Image: Codable, Hashable {
 
-    /** ID of the image. */
+    /** ID of the image. UUID Version 4. */
     public var id: UUID
     /** A URL for a thumbnail-sized version of the image. */
     public var thumbnailUrl: String

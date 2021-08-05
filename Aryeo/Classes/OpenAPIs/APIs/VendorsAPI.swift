@@ -64,7 +64,7 @@ open class VendorsAPI {
     /**
      Get vendors available to a group.
      
-     - parameter vendorId: (path) ID of the group that is associated as a vendor. 
+     - parameter vendorId: (path) The ID of the group that is associated as a vendor. UUID Version 4. 
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
@@ -87,7 +87,7 @@ open class VendorsAPI {
      - BASIC:
        - type: http
        - name: Token
-     - parameter vendorId: (path) ID of the group that is associated as a vendor. 
+     - parameter vendorId: (path) The ID of the group that is associated as a vendor. UUID Version 4. 
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - returns: RequestBuilder<GroupResource> 
      */

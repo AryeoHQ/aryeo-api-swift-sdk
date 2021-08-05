@@ -18,7 +18,7 @@ public struct Group: Codable, Hashable {
         case agent = "AGENT"
         case brokerage = "BROKERAGE"
     }
-    /** ID of the group. */
+    /** ID of the group. UUID Version 4. */
     public var id: UUID
     /** The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned. */
     public var type: ModelType

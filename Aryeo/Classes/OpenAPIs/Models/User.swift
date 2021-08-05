@@ -13,7 +13,7 @@ import AnyCodable
 /** A record of a person on the Aryeo platform. */
 public struct User: Codable, Hashable {
 
-    /** ID of the user. */
+    /** ID of the user. UUID Version 4. */
     public var id: UUID
     /** Email address of the user. */
     public var email: String

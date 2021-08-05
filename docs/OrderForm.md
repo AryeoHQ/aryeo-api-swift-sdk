@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** | UUID of the order form. | 
+**id** | **UUID** | ID of the order form. UUID Version 4. | 
 **title** | **String** | The title or name of the order form. | [optional] 
 **url** | **String** | A URL of a publicly-accessible webpage for this order form. | 
 

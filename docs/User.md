@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** | ID of the user. | 
+**id** | **UUID** | ID of the user. UUID Version 4. | 
 **email** | **String** | Email address of the user. | 
 **firstName** | **String** | First name of the user. | [optional] 
 **lastName** | **String** | Last name of the user. | [optional] 

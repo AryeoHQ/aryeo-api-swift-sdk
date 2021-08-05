@@ -13,7 +13,7 @@ import AnyCodable
 /** Website (in branded and unbranded versions) that displays information about a property. */
 public struct PropertyWebsite: Codable, Hashable {
 
-    /** ID of the website. */
+    /** ID of the website. UUID Version 4. */
     public var id: UUID
     /** URL for branded version of website. */
     public var brandedUrl: String

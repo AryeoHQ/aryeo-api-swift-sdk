@@ -104,7 +104,7 @@ Get information about a listing.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
-let listingId = 987 // UUID | The ID of a listing.
+let listingId = 987 // UUID | The ID of a listing. UUID Version 4.
 let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
 
 // Get information about a listing.
@@ -124,7 +124,7 @@ ListingsAPI.getListingsId(listingId: listingId, include: include) { (response, e
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **listingId** | [**UUID**](.md) | The ID of a listing. | 
+ **listingId** | [**UUID**](.md) | The ID of a listing. UUID Version 4. | 
  **include** | **String** | Comma separated list of optional data to include in the response. | [optional] 
 
 ### Return type

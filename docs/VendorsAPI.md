@@ -72,7 +72,7 @@ Get information about a vendor.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
-let vendorId = 987 // UUID | ID of the group that is associated as a vendor.
+let vendorId = 987 // UUID | The ID of the group that is associated as a vendor. UUID Version 4.
 let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
 
 // Get vendors available to a group.
@@ -92,7 +92,7 @@ VendorsAPI.getVendorsId(vendorId: vendorId, include: include) { (response, error
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **vendorId** | [**UUID**](.md) | ID of the group that is associated as a vendor. | 
+ **vendorId** | [**UUID**](.md) | The ID of the group that is associated as a vendor. UUID Version 4. | 
  **include** | **String** | Comma separated list of optional data to include in the response. | [optional] 
 
 ### Return type
