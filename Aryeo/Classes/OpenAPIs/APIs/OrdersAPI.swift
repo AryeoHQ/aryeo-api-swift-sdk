@@ -68,6 +68,70 @@ open class OrdersAPI {
     }
 
     /**
+     Get products available to a group.
+     
+     - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
+     - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
+     - parameter page: (query) The requested page. Defaults to 1. (optional)
+     - parameter filterSearch: (query) Return products that have fields matching this term. (optional)
+     - parameter filterCategoryIds: (query) Return products in the given categories. (optional)
+     - parameter filterType: (query) Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: String? = nil, filterType: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ProductCollection?, _ error: Error?) -> Void)) {
+        getProductsWithRequestBuilder(sort: sort, perPage: perPage, page: page, filterSearch: filterSearch, filterCategoryIds: filterCategoryIds, filterType: filterType).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Get products available to a group.
+     - GET /products
+     - Get products of a group.
+     - BASIC:
+       - type: http
+       - name: Token
+     - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
+     - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
+     - parameter page: (query) The requested page. Defaults to 1. (optional)
+     - parameter filterSearch: (query) Return products that have fields matching this term. (optional)
+     - parameter filterCategoryIds: (query) Return products in the given categories. (optional)
+     - parameter filterType: (query) Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
+     - returns: RequestBuilder<ProductCollection> 
+     */
+    open class func getProductsWithRequestBuilder(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: String? = nil, filterType: String? = nil) -> RequestBuilder<ProductCollection> {
+        let localVariablePath = "/products"
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "sort": sort?.encodeToJSON(),
+            "per_page": perPage?.encodeToJSON(),
+            "page": page?.encodeToJSON(),
+            "filter[search]": filterSearch?.encodeToJSON(),
+            "filter[category_ids]": filterCategoryIds?.encodeToJSON(),
+            "filter[type]": filterType?.encodeToJSON(),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<ProductCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
+    }
+
+    /**
      Create an order.
      
      - parameter orderPostPayload: (body) OrderPostPayload (optional)
