@@ -4,8 +4,8 @@ All URIs are relative to *https://api.aryeo.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getVendors**](VendorsAPI.md#getvendors) | **GET** /vendors | Get vendors available to a group.
-[**getVendorsId**](VendorsAPI.md#getvendorsid) | **GET** /vendors/{vendor_id} | Get vendors available to a group.
+[**getVendors**](VendorsAPI.md#getvendors) | **GET** /vendors | List all vendors.
+[**getVendorsId**](VendorsAPI.md#getvendorsid) | **GET** /vendors/{vendor_id} | Retrieve a vendor.
 
 
 # **getVendors**
@@ -13,18 +13,18 @@ Method | HTTP request | Description
     open class func getVendors(include: String? = nil, completion: @escaping (_ data: GroupCollection?, _ error: Error?) -> Void)
 ```
 
-Get vendors available to a group.
+List all vendors.
 
-Get vendors available to a group.
+Lists all vendors available to a group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
 let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
 
-// Get vendors available to a group.
+// List all vendors.
 VendorsAPI.getVendors(include: include) { (response, error) in
     guard error == nil else {
         print(error)
@@ -63,11 +63,11 @@ Name | Type | Description  | Notes
     open class func getVendorsId(vendorId: UUID, include: String? = nil, completion: @escaping (_ data: GroupResource?, _ error: Error?) -> Void)
 ```
 
-Get vendors available to a group.
+Retrieve a vendor.
 
-Get information about a vendor.
+Retrieves the details of a vendor with the given ID.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -75,7 +75,7 @@ import Aryeo
 let vendorId = 987 // UUID | The ID of the group that is associated as a vendor. UUID Version 4.
 let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
 
-// Get vendors available to a group.
+// Retrieve a vendor.
 VendorsAPI.getVendorsId(vendorId: vendorId, include: include) { (response, error) in
     guard error == nil else {
         print(error)

@@ -25,15 +25,19 @@ public struct OrderPostPayload: Codable, Hashable {
     public var fulfillmentStatus: FulfillmentStatus?
     /** The payment status of the order. Defaults to \"UNPAID\".  */
     public var paymentStatus: PaymentStatus?
+    /** Google Places ID of the address to attach to the order. */
+    public var placeId: String?
 
-    public init(fulfillmentStatus: FulfillmentStatus? = nil, paymentStatus: PaymentStatus? = nil) {
+    public init(fulfillmentStatus: FulfillmentStatus? = nil, paymentStatus: PaymentStatus? = nil, placeId: String? = nil) {
         self.fulfillmentStatus = fulfillmentStatus
         self.paymentStatus = paymentStatus
+        self.placeId = placeId
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case fulfillmentStatus = "fulfillment_status"
         case paymentStatus = "payment_status"
+        case placeId = "place_id"
     }
 
     // Encodable protocol methods
@@ -42,6 +46,7 @@ public struct OrderPostPayload: Codable, Hashable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(fulfillmentStatus, forKey: .fulfillmentStatus)
         try container.encodeIfPresent(paymentStatus, forKey: .paymentStatus)
+        try container.encodeIfPresent(placeId, forKey: .placeId)
     }
 }
 

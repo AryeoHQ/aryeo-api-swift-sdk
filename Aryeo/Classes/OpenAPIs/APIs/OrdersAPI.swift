@@ -13,7 +13,7 @@ import AnyCodable
 open class OrdersAPI {
 
     /**
-     Get orders available to a group.
+     List all orders.
      
      - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-created_at&#x60;. (optional)
      - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
@@ -33,9 +33,9 @@ open class OrdersAPI {
     }
 
     /**
-     Get orders available to a group.
+     List all orders.
      - GET /orders
-     - Get orders of a group.
+     - Lists all orders of a group.
      - BASIC:
        - type: http
        - name: Token

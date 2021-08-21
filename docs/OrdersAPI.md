@@ -4,7 +4,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getOrders**](OrdersAPI.md#getorders) | **GET** /orders | Get orders available to a group.
+[**getOrders**](OrdersAPI.md#getorders) | **GET** /orders | List all orders.
 [**postOrders**](OrdersAPI.md#postorders) | **POST** /orders | Create an order.
 
 
@@ -13,11 +13,11 @@ Method | HTTP request | Description
     open class func getOrders(sort: String? = nil, perPage: String? = nil, page: String? = nil, completion: @escaping (_ data: OrderCollection?, _ error: Error?) -> Void)
 ```
 
-Get orders available to a group.
+List all orders.
 
-Get orders of a group.
+Lists all orders of a group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -26,7 +26,7 @@ let sort = "sort_example" // String | Comma separated list of fields used for so
 let perPage = "perPage_example" // String | The number of items per page. Defaults to 25. (optional)
 let page = "page_example" // String | The requested page. Defaults to 1. (optional)
 
-// Get orders available to a group.
+// List all orders.
 OrdersAPI.getOrders(sort: sort, perPage: perPage, page: page) { (response, error) in
     guard error == nil else {
         print(error)
@@ -71,12 +71,12 @@ Create an order.
 
 Create an order.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
-let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", paymentStatus: "paymentStatus_example") // OrderPostPayload | OrderPostPayload (optional)
+let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", paymentStatus: "paymentStatus_example", placeId: "placeId_example") // OrderPostPayload | OrderPostPayload (optional)
 
 // Create an order.
 OrdersAPI.postOrders(orderPostPayload: orderPostPayload) { (response, error) in

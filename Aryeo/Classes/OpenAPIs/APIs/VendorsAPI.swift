@@ -13,7 +13,7 @@ import AnyCodable
 open class VendorsAPI {
 
     /**
-     Get vendors available to a group.
+     List all vendors.
      
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
@@ -31,9 +31,9 @@ open class VendorsAPI {
     }
 
     /**
-     Get vendors available to a group.
+     List all vendors.
      - GET /vendors
-     - Get vendors available to a group.
+     - Lists all vendors available to a group.
      - BASIC:
        - type: http
        - name: Token
@@ -62,7 +62,7 @@ open class VendorsAPI {
     }
 
     /**
-     Get vendors available to a group.
+     Retrieve a vendor.
      
      - parameter vendorId: (path) The ID of the group that is associated as a vendor. UUID Version 4. 
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
@@ -81,9 +81,9 @@ open class VendorsAPI {
     }
 
     /**
-     Get vendors available to a group.
+     Retrieve a vendor.
      - GET /vendors/{vendor_id}
-     - Get information about a vendor.
+     - Retrieves the details of a vendor with the given ID.
      - BASIC:
        - type: http
        - name: Token

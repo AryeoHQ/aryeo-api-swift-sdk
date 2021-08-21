@@ -29,7 +29,7 @@ open class ListingsAPI {
     }
 
     /**
-     Get the listings available to a group.
+     List all listings.
      
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
      - parameter filterSearch: (query) Return listings that have fields matching this term. (optional)
@@ -63,9 +63,9 @@ open class ListingsAPI {
     }
 
     /**
-     Get the listings available to a group.
+     List all listings.
      - GET /listings
-     - Get the listings available to a group.
+     - Lists all listings available to a group.
      - BASIC:
        - type: http
        - name: Token
@@ -126,7 +126,7 @@ open class ListingsAPI {
     }
 
     /**
-     Get information about a listing.
+     Retrieve a listing.
      
      - parameter listingId: (path) The ID of a listing. UUID Version 4. 
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
@@ -145,9 +145,9 @@ open class ListingsAPI {
     }
 
     /**
-     Get information about a listing.
+     Retrieve a listing.
      - GET /listings/{listing_id}
-     - Get information about a listing.
+     - Retrieves the details of a listing with the given ID.
      - BASIC:
        - type: http
        - name: Token

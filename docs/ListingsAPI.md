@@ -4,8 +4,8 @@ All URIs are relative to *https://api.aryeo.com/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getListings**](ListingsAPI.md#getlistings) | **GET** /listings | Get the listings available to a group.
-[**getListingsId**](ListingsAPI.md#getlistingsid) | **GET** /listings/{listing_id} | Get information about a listing.
+[**getListings**](ListingsAPI.md#getlistings) | **GET** /listings | List all listings.
+[**getListingsId**](ListingsAPI.md#getlistingsid) | **GET** /listings/{listing_id} | Retrieve a listing.
 
 
 # **getListings**
@@ -13,11 +13,11 @@ Method | HTTP request | Description
     open class func getListings(include: String? = nil, filterSearch: String? = nil, filterAddress: String? = nil, filterListAgent: String? = nil, filterStatus: FilterStatus_getListings? = nil, filterActive: Bool? = nil, filterPriceGte: Double? = nil, filterPriceLte: Double? = nil, filterSquareFeetGte: Double? = nil, filterSquareFeetLte: Double? = nil, filterBedroomsGte: Int? = nil, filterBedroomsLte: Int? = nil, filterBathroomsGte: Double? = nil, filterBathroomsLte: Double? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, completion: @escaping (_ data: ListingCollection?, _ error: Error?) -> Void)
 ```
 
-Get the listings available to a group.
+List all listings.
 
-Get the listings available to a group.
+Lists all listings available to a group.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -40,7 +40,7 @@ let sort = "sort_example" // String | Comma separated list of fields used for so
 let perPage = "perPage_example" // String | The number of items per page. Defaults to 25. (optional)
 let page = "page_example" // String | The requested page. Defaults to 1. (optional)
 
-// Get the listings available to a group.
+// List all listings.
 ListingsAPI.getListings(include: include, filterSearch: filterSearch, filterAddress: filterAddress, filterListAgent: filterListAgent, filterStatus: filterStatus, filterActive: filterActive, filterPriceGte: filterPriceGte, filterPriceLte: filterPriceLte, filterSquareFeetGte: filterSquareFeetGte, filterSquareFeetLte: filterSquareFeetLte, filterBedroomsGte: filterBedroomsGte, filterBedroomsLte: filterBedroomsLte, filterBathroomsGte: filterBathroomsGte, filterBathroomsLte: filterBathroomsLte, sort: sort, perPage: perPage, page: page) { (response, error) in
     guard error == nil else {
         print(error)
@@ -95,11 +95,11 @@ Name | Type | Description  | Notes
     open class func getListingsId(listingId: UUID, include: String? = nil, completion: @escaping (_ data: ListingResource?, _ error: Error?) -> Void)
 ```
 
-Get information about a listing.
+Retrieve a listing.
 
-Get information about a listing.
+Retrieves the details of a listing with the given ID.
 
-### Example 
+### Example
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -107,7 +107,7 @@ import Aryeo
 let listingId = 987 // UUID | The ID of a listing. UUID Version 4.
 let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
 
-// Get information about a listing.
+// Retrieve a listing.
 ListingsAPI.getListingsId(listingId: listingId, include: include) { (response, error) in
     guard error == nil else {
         print(error)
