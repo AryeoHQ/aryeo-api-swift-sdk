@@ -79,7 +79,7 @@ open class OrdersAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: String? = nil, filterType: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ProductCollection?, _ error: Error?) -> Void)) {
+    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: Array? = nil, filterType: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ProductCollection?, _ error: Error?) -> Void)) {
         getProductsWithRequestBuilder(sort: sort, perPage: perPage, page: page, filterSearch: filterSearch, filterCategoryIds: filterCategoryIds, filterType: filterType).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -105,7 +105,7 @@ open class OrdersAPI {
      - parameter filterType: (query) Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      - returns: RequestBuilder<ProductCollection> 
      */
-    open class func getProductsWithRequestBuilder(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: String? = nil, filterType: String? = nil) -> RequestBuilder<ProductCollection> {
+    open class func getProductsWithRequestBuilder(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: Array? = nil, filterType: String? = nil) -> RequestBuilder<ProductCollection> {
         let localVariablePath = "/products"
         let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil

@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 # **getProducts**
 ```swift
-    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: String? = nil, filterType: String? = nil, completion: @escaping (_ data: ProductCollection?, _ error: Error?) -> Void)
+    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: Array? = nil, filterType: String? = nil, completion: @escaping (_ data: ProductCollection?, _ error: Error?) -> Void)
 ```
 
 Get products available to a group.
@@ -81,7 +81,7 @@ let sort = "sort_example" // String | Comma separated list of fields used for so
 let perPage = "perPage_example" // String | The number of items per page. Defaults to 25. (optional)
 let page = "page_example" // String | The requested page. Defaults to 1. (optional)
 let filterSearch = "filterSearch_example" // String | Return products that have fields matching this term. (optional)
-let filterCategoryIds = "filterCategoryIds_example" // String | Return products in the given categories. (optional)
+let filterCategoryIds = TODO // Array | Return products in the given categories. (optional)
 let filterType = "filterType_example" // String | Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
 
 // Get products available to a group.
@@ -105,7 +105,7 @@ Name | Type | Description  | Notes
  **perPage** | **String** | The number of items per page. Defaults to 25. | [optional] 
  **page** | **String** | The requested page. Defaults to 1. | [optional] 
  **filterSearch** | **String** | Return products that have fields matching this term. | [optional] 
- **filterCategoryIds** | **String** | Return products in the given categories. | [optional] 
+ **filterCategoryIds** | [**Array**](.md) | Return products in the given categories. | [optional] 
  **filterType** | **String** | Return products matching the given type. Allowed values are: MAIN, ADDON. | [optional] 
 
 ### Return type

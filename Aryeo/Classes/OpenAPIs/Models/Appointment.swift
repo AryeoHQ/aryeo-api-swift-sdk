@@ -36,8 +36,10 @@ public struct Appointment: Codable, Hashable {
     public var order: Order?
     /** Users attached to the appointment. */
     public var users: [User]?
+    /** Items attached to the appointment. */
+    public var items: [OrderItem]?
 
-    public init(id: UUID, status: Status? = nil, title: String? = nil, description: String? = nil, startAt: Date? = nil, endAt: Date? = nil, duration: Int? = nil, order: Order? = nil, users: [User]? = nil) {
+    public init(id: UUID, status: Status? = nil, title: String? = nil, description: String? = nil, startAt: Date? = nil, endAt: Date? = nil, duration: Int? = nil, order: Order? = nil, users: [User]? = nil, items: [OrderItem]? = nil) {
         self.id = id
         self.status = status
         self.title = title
@@ -47,6 +49,7 @@ public struct Appointment: Codable, Hashable {
         self.duration = duration
         self.order = order
         self.users = users
+        self.items = items
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -59,6 +62,7 @@ public struct Appointment: Codable, Hashable {
         case duration
         case order
         case users
+        case items
     }
 
     // Encodable protocol methods
@@ -74,6 +78,7 @@ public struct Appointment: Codable, Hashable {
         try container.encodeIfPresent(duration, forKey: .duration)
         try container.encodeIfPresent(order, forKey: .order)
         try container.encodeIfPresent(users, forKey: .users)
+        try container.encodeIfPresent(items, forKey: .items)
     }
 }
 

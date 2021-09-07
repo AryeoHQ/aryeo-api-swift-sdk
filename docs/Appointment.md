@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **duration** | **Int** | The length of the appointment in minutes. | [optional] 
 **order** | [**Order**](Order.md) |  | [optional] 
 **users** | [User] | Users attached to the appointment. | [optional] 
+**items** | [OrderItem] | Items attached to the appointment. | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
