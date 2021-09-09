@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAppointments**](AppointmentsAPI.md#getappointments) | **GET** /appointments | List all appointments.
 [**getUnconfirmedAppointments**](AppointmentsAPI.md#getunconfirmedappointments) | **GET** /unconfirmed-appointments | List all unconfirmed appointments.
+[**getUnconfirmedAppointmentsId**](AppointmentsAPI.md#getunconfirmedappointmentsid) | **GET** /unconfirmed-appointments/{unconfirmed_appointment_id} | Retrieve an unconfirmed appointment.
 [**putAppointmentsAppointmentIdCancel**](AppointmentsAPI.md#putappointmentsappointmentidcancel) | **PUT** /appointments/{appointment_id}/cancel | Cancel an appointment.
 [**putAppointmentsAppointmentIdReschedule**](AppointmentsAPI.md#putappointmentsappointmentidreschedule) | **PUT** /appointments/{appointment_id}/reschedule | Reschedule an appointment.
 
@@ -120,6 +121,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UnconfirmedAppointmentCollection**](UnconfirmedAppointmentCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getUnconfirmedAppointmentsId**
+```swift
+    open class func getUnconfirmedAppointmentsId(unconfirmedAppointmentId: UUID, include: String? = nil, completion: @escaping (_ data: UnconfirmedAppointmentResource?, _ error: Error?) -> Void)
+```
+
+Retrieve an unconfirmed appointment.
+
+Retrieves the details of an unconfirmed appointment with the given ID.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import Aryeo
+
+let unconfirmedAppointmentId = 987 // UUID | The ID of an appointment.
+let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
+
+// Retrieve an unconfirmed appointment.
+AppointmentsAPI.getUnconfirmedAppointmentsId(unconfirmedAppointmentId: unconfirmedAppointmentId, include: include) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **unconfirmedAppointmentId** | [**UUID**](.md) | The ID of an appointment. | 
+ **include** | **String** | Comma separated list of optional data to include in the response. | [optional] 
+
+### Return type
+
+[**UnconfirmedAppointmentResource**](UnconfirmedAppointmentResource.md)
 
 ### Authorization
 

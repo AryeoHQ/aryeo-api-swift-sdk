@@ -152,6 +152,60 @@ open class AppointmentsAPI {
     }
 
     /**
+     Retrieve an unconfirmed appointment.
+     
+     - parameter unconfirmedAppointmentId: (path) The ID of an appointment. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getUnconfirmedAppointmentsId(unconfirmedAppointmentId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: UnconfirmedAppointmentResource?, _ error: Error?) -> Void)) {
+        getUnconfirmedAppointmentsIdWithRequestBuilder(unconfirmedAppointmentId: unconfirmedAppointmentId, include: include).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Retrieve an unconfirmed appointment.
+     - GET /unconfirmed-appointments/{unconfirmed_appointment_id}
+     - Retrieves the details of an unconfirmed appointment with the given ID.
+     - BASIC:
+       - type: http
+       - name: Token
+     - parameter unconfirmedAppointmentId: (path) The ID of an appointment. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
+     - returns: RequestBuilder<UnconfirmedAppointmentResource> 
+     */
+    open class func getUnconfirmedAppointmentsIdWithRequestBuilder(unconfirmedAppointmentId: UUID, include: String? = nil) -> RequestBuilder<UnconfirmedAppointmentResource> {
+        var localVariablePath = "/unconfirmed-appointments/{unconfirmed_appointment_id}"
+        let unconfirmedAppointmentIdPreEscape = "\(APIHelper.mapValueToPathItem(unconfirmedAppointmentId))"
+        let unconfirmedAppointmentIdPostEscape = unconfirmedAppointmentIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{unconfirmed_appointment_id}", with: unconfirmedAppointmentIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "include": include?.encodeToJSON(),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<UnconfirmedAppointmentResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
+    }
+
+    /**
      Cancel an appointment.
      
      - parameter appointmentId: (path) The ID of an appointment. 
