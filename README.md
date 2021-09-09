@@ -68,6 +68,7 @@ Class | Method | HTTP request | Description
 *ListingsAPI* | [**getListings**](docs/ListingsAPI.md#getlistings) | **GET** /listings | List all listings.
 *ListingsAPI* | [**getListingsId**](docs/ListingsAPI.md#getlistingsid) | **GET** /listings/{listing_id} | Retrieve a listing.
 *OrdersAPI* | [**getOrders**](docs/OrdersAPI.md#getorders) | **GET** /orders | List all orders.
+*OrdersAPI* | [**getOrdersId**](docs/OrdersAPI.md#getordersid) | **GET** /orders/{order_id} | Retrieve an order.
 *OrdersAPI* | [**getProducts**](docs/OrdersAPI.md#getproducts) | **GET** /products | Get products available to a group.
 *OrdersAPI* | [**postOrders**](docs/OrdersAPI.md#postorders) | **POST** /orders | Create an order.
 *VendorsAPI* | [**getVendors**](docs/VendorsAPI.md#getvendors) | **GET** /vendors | List all vendors.

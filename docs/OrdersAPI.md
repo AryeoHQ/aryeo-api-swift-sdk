@@ -5,6 +5,7 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getOrders**](OrdersAPI.md#getorders) | **GET** /orders | List all orders.
+[**getOrdersId**](OrdersAPI.md#getordersid) | **GET** /orders/{order_id} | Retrieve an order.
 [**getProducts**](OrdersAPI.md#getproducts) | **GET** /products | Get products available to a group.
 [**postOrders**](OrdersAPI.md#postorders) | **POST** /orders | Create an order.
 
@@ -51,6 +52,58 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**OrderCollection**](OrderCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getOrdersId**
+```swift
+    open class func getOrdersId(orderId: UUID, include: String? = nil, completion: @escaping (_ data: OrderResource?, _ error: Error?) -> Void)
+```
+
+Retrieve an order.
+
+Retrieves the details of an order with the given ID.
+
+### Example
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import Aryeo
+
+let orderId = 987 // UUID | The ID of an order. UUID Version 4.
+let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
+
+// Retrieve an order.
+OrdersAPI.getOrdersId(orderId: orderId, include: include) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | [**UUID**](.md) | The ID of an order. UUID Version 4. | 
+ **include** | **String** | Comma separated list of optional data to include in the response. | [optional] 
+
+### Return type
+
+[**OrderResource**](OrderResource.md)
 
 ### Authorization
 

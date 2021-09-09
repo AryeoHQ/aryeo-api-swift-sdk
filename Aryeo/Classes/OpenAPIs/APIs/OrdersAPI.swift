@@ -68,6 +68,60 @@ open class OrdersAPI {
     }
 
     /**
+     Retrieve an order.
+     
+     - parameter orderId: (path) The ID of an order. UUID Version 4. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getOrdersId(orderId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: OrderResource?, _ error: Error?) -> Void)) {
+        getOrdersIdWithRequestBuilder(orderId: orderId, include: include).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Retrieve an order.
+     - GET /orders/{order_id}
+     - Retrieves the details of an order with the given ID.
+     - BASIC:
+       - type: http
+       - name: Token
+     - parameter orderId: (path) The ID of an order. UUID Version 4. 
+     - parameter include: (query) Comma separated list of optional data to include in the response. (optional)
+     - returns: RequestBuilder<OrderResource> 
+     */
+    open class func getOrdersIdWithRequestBuilder(orderId: UUID, include: String? = nil) -> RequestBuilder<OrderResource> {
+        var localVariablePath = "/orders/{order_id}"
+        let orderIdPreEscape = "\(APIHelper.mapValueToPathItem(orderId))"
+        let orderIdPostEscape = orderIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
+        localVariablePath = localVariablePath.replacingOccurrences(of: "{order_id}", with: orderIdPostEscape, options: .literal, range: nil)
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "include": include?.encodeToJSON(),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<OrderResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
+    }
+
+    /**
      Get products available to a group.
      
      - parameter sort: (query) Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;title&#x60;. (optional)
