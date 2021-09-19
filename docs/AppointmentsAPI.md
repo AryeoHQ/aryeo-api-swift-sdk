@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 # **getAppointments**
 ```swift
-    open class func getAppointments(include: String? = nil, filterTense: FilterTense_getAppointments? = nil, filterStartAtGte: Date? = nil, filterStartAtLte: Date? = nil, filterUserIds: Array? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, completion: @escaping (_ data: AppointmentCollection?, _ error: Error?) -> Void)
+    open class func getAppointments(include: String? = nil, filterTense: FilterTense_getAppointments? = nil, filterStartAtGte: Date? = nil, filterStartAtLte: Date? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, completion: @escaping (_ data: AppointmentCollection?, _ error: Error?) -> Void)
 ```
 
 List all appointments.
@@ -29,7 +29,7 @@ let include = "include_example" // String | Comma separated list of optional dat
 let filterTense = "filterTense_example" // String | Return appointments that are upcoming or in the past. (optional)
 let filterStartAtGte = Date() // Date | Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. (optional)
 let filterStartAtLte = Date() // Date | Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. (optional)
-let filterUserIds = TODO // Array | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+let filterUserIds = [123] // [UUID] | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
 let sort = "sort_example" // String | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-start_at`. (optional)
 let perPage = "perPage_example" // String | The number of items per page. Defaults to 25. (optional)
 let page = "page_example" // String | The requested page. Defaults to 1. (optional)
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
  **filterTense** | **String** | Return appointments that are upcoming or in the past. | [optional] 
  **filterStartAtGte** | **Date** | Return appointments where the start_at field is greater than or equal to this value. Effectively, appointments that start after this date. | [optional] 
  **filterStartAtLte** | **Date** | Return appointments where the start_at field is less than or equal to this value. Effectively, appointments that start before this date. | [optional] 
- **filterUserIds** | [**Array**](.md) | The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional] 
+ **filterUserIds** | [**[UUID]**](UUID.md) | The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional] 
  **sort** | **String** | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. | [optional] 
  **perPage** | **String** | The number of items per page. Defaults to 25. | [optional] 
  **page** | **String** | The requested page. Defaults to 1. | [optional] 
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 # **getUnconfirmedAppointments**
 ```swift
-    open class func getUnconfirmedAppointments(include: String? = nil, filterUserIds: Array? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, completion: @escaping (_ data: UnconfirmedAppointmentCollection?, _ error: Error?) -> Void)
+    open class func getUnconfirmedAppointments(include: String? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, completion: @escaping (_ data: UnconfirmedAppointmentCollection?, _ error: Error?) -> Void)
 ```
 
 List all unconfirmed appointments.
@@ -90,7 +90,7 @@ List all unconfirmed appointments. These are appointments that have not been sch
 import Aryeo
 
 let include = "include_example" // String | Comma separated list of optional data to include in the response. (optional)
-let filterUserIds = TODO // Array | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+let filterUserIds = [123] // [UUID] | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
 let sort = "sort_example" // String | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to `-start_at`. (optional)
 let perPage = "perPage_example" // String | The number of items per page. Defaults to 25. (optional)
 let page = "page_example" // String | The requested page. Defaults to 1. (optional)
@@ -113,7 +113,7 @@ AppointmentsAPI.getUnconfirmedAppointments(include: include, filterUserIds: filt
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **include** | **String** | Comma separated list of optional data to include in the response. | [optional] 
- **filterUserIds** | [**Array**](.md) | The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional] 
+ **filterUserIds** | [**[UUID]**](UUID.md) | The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional] 
  **sort** | **String** | Comma separated list of fields used for sorting. Placing a minus symbol in front of a field name sorts in descending order. Defaults to &#x60;-start_at&#x60;. | [optional] 
  **perPage** | **String** | The number of items per page. Defaults to 25. | [optional] 
  **page** | **String** | The requested page. Defaults to 1. | [optional] 

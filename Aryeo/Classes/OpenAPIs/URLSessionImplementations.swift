@@ -93,7 +93,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
         return modifiedRequest
     }
 
-    override open func execute(_ apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, Error>) -> Void) {
+    override open func execute(_ apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, Error>) -> Void) {
         let urlSessionId = UUID().uuidString
         // Create a new manager for each request to customize its request header
         let urlSession = createURLSession()
@@ -250,7 +250,7 @@ open class URLSessionRequestBuilder<T>: RequestBuilder<T> {
         for (key, value) in headers {
             httpHeaders[key] = value
         }
-        for (key, value) in Aryeo.customHeaders {
+        for (key, value) in AryeoAPI.customHeaders {
             httpHeaders[key] = value
         }
         return httpHeaders

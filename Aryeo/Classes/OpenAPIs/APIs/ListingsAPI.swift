@@ -51,7 +51,7 @@ open class ListingsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getListings(include: String? = nil, filterSearch: String? = nil, filterAddress: String? = nil, filterListAgent: String? = nil, filterStatus: FilterStatus_getListings? = nil, filterActive: Bool? = nil, filterPriceGte: Double? = nil, filterPriceLte: Double? = nil, filterSquareFeetGte: Double? = nil, filterSquareFeetLte: Double? = nil, filterBedroomsGte: Int? = nil, filterBedroomsLte: Int? = nil, filterBathroomsGte: Double? = nil, filterBathroomsLte: Double? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ListingCollection?, _ error: Error?) -> Void)) {
+    open class func getListings(include: String? = nil, filterSearch: String? = nil, filterAddress: String? = nil, filterListAgent: String? = nil, filterStatus: FilterStatus_getListings? = nil, filterActive: Bool? = nil, filterPriceGte: Double? = nil, filterPriceLte: Double? = nil, filterSquareFeetGte: Double? = nil, filterSquareFeetLte: Double? = nil, filterBedroomsGte: Int? = nil, filterBedroomsLte: Int? = nil, filterBathroomsGte: Double? = nil, filterBathroomsLte: Double? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: ListingCollection?, _ error: Error?) -> Void)) {
         getListingsWithRequestBuilder(include: include, filterSearch: filterSearch, filterAddress: filterAddress, filterListAgent: filterListAgent, filterStatus: filterStatus, filterActive: filterActive, filterPriceGte: filterPriceGte, filterPriceLte: filterPriceLte, filterSquareFeetGte: filterSquareFeetGte, filterSquareFeetLte: filterSquareFeetLte, filterBedroomsGte: filterBedroomsGte, filterBedroomsLte: filterBedroomsLte, filterBathroomsGte: filterBathroomsGte, filterBathroomsLte: filterBathroomsLte, sort: sort, perPage: perPage, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -90,7 +90,7 @@ open class ListingsAPI {
      */
     open class func getListingsWithRequestBuilder(include: String? = nil, filterSearch: String? = nil, filterAddress: String? = nil, filterListAgent: String? = nil, filterStatus: FilterStatus_getListings? = nil, filterActive: Bool? = nil, filterPriceGte: Double? = nil, filterPriceLte: Double? = nil, filterSquareFeetGte: Double? = nil, filterSquareFeetLte: Double? = nil, filterBedroomsGte: Int? = nil, filterBedroomsLte: Int? = nil, filterBathroomsGte: Double? = nil, filterBathroomsLte: Double? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil) -> RequestBuilder<ListingCollection> {
         let localVariablePath = "/listings"
-        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableURLString = AryeoAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -120,7 +120,7 @@ open class ListingsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<ListingCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ListingCollection>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -133,7 +133,7 @@ open class ListingsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getListingsId(listingId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ListingResource?, _ error: Error?) -> Void)) {
+    open class func getListingsId(listingId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: ListingResource?, _ error: Error?) -> Void)) {
         getListingsIdWithRequestBuilder(listingId: listingId, include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -160,7 +160,7 @@ open class ListingsAPI {
         let listingIdPreEscape = "\(APIHelper.mapValueToPathItem(listingId))"
         let listingIdPostEscape = listingIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{listing_id}", with: listingIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableURLString = AryeoAPI.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -174,7 +174,7 @@ open class ListingsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<ListingResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ListingResource>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }

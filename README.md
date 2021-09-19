@@ -70,7 +70,7 @@ Class | Method | HTTP request | Description
 *ListingsAPI* | [**getListingsId**](docs/ListingsAPI.md#getlistingsid) | **GET** /listings/{listing_id} | Retrieve a listing.
 *OrdersAPI* | [**getOrders**](docs/OrdersAPI.md#getorders) | **GET** /orders | List all orders.
 *OrdersAPI* | [**getOrdersId**](docs/OrdersAPI.md#getordersid) | **GET** /orders/{order_id} | Retrieve an order.
-*OrdersAPI* | [**getProducts**](docs/OrdersAPI.md#getproducts) | **GET** /products | Get products available to a group.
+*OrdersAPI* | [**getProducts**](docs/OrdersAPI.md#getproducts) | **GET** /products | List all products.
 *OrdersAPI* | [**postOrders**](docs/OrdersAPI.md#postorders) | **POST** /orders | Create an order.
 *VendorsAPI* | [**getVendors**](docs/VendorsAPI.md#getvendors) | **GET** /vendors | List all vendors.
 *VendorsAPI* | [**getVendorsId**](docs/VendorsAPI.md#getvendorsid) | **GET** /vendors/{vendor_id} | Retrieve a vendor.

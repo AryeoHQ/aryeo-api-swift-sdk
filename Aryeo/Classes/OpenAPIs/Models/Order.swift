@@ -51,10 +51,13 @@ public struct Order: Codable, Hashable {
     public var statusUrl: String?
     public var address: Address?
     public var customer: Group?
+    public var listing: Listing?
     /** items */
     public var items: [OrderItem]?
+    public var appointments: [Appointment]?
+    public var unconfirmedAppointments: [UnconfirmedAppointment]?
 
-    public init(id: UUID, number: Int, title: String, fulfillmentStatus: FulfillmentStatus, paymentStatus: PaymentStatus, currency: Currency? = nil, totalAmount: Int? = nil, paymentUrl: String? = nil, statusUrl: String?, address: Address? = nil, customer: Group? = nil, items: [OrderItem]? = nil) {
+    public init(id: UUID, number: Int, title: String, fulfillmentStatus: FulfillmentStatus, paymentStatus: PaymentStatus, currency: Currency? = nil, totalAmount: Int? = nil, paymentUrl: String? = nil, statusUrl: String?, address: Address? = nil, customer: Group? = nil, listing: Listing? = nil, items: [OrderItem]? = nil, appointments: [Appointment]? = nil, unconfirmedAppointments: [UnconfirmedAppointment]? = nil) {
         self.id = id
         self.number = number
         self.title = title
@@ -66,7 +69,10 @@ public struct Order: Codable, Hashable {
         self.statusUrl = statusUrl
         self.address = address
         self.customer = customer
+        self.listing = listing
         self.items = items
+        self.appointments = appointments
+        self.unconfirmedAppointments = unconfirmedAppointments
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -81,7 +87,10 @@ public struct Order: Codable, Hashable {
         case statusUrl = "status_url"
         case address
         case customer
+        case listing
         case items
+        case appointments
+        case unconfirmedAppointments = "unconfirmed_appointments"
     }
 
     // Encodable protocol methods
@@ -99,7 +108,10 @@ public struct Order: Codable, Hashable {
         try container.encode(statusUrl, forKey: .statusUrl)
         try container.encodeIfPresent(address, forKey: .address)
         try container.encodeIfPresent(customer, forKey: .customer)
+        try container.encodeIfPresent(listing, forKey: .listing)
         try container.encodeIfPresent(items, forKey: .items)
+        try container.encodeIfPresent(appointments, forKey: .appointments)
+        try container.encodeIfPresent(unconfirmedAppointments, forKey: .unconfirmedAppointments)
     }
 }
 
