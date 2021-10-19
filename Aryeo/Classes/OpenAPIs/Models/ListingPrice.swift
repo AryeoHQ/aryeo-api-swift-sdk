@@ -11,10 +11,10 @@ import AnyCodable
 #endif
 
 /** Valuation data relating to the price of a listing. */
-public struct ListingPrice: Codable, Hashable {
+public struct ListingPrice: Codable {
 
     /** The current price of the listing. */
-    public var listPrice: Int?
+    public private(set) var listPrice: Int?
 
     public init(listPrice: Int? = nil) {
         self.listPrice = listPrice

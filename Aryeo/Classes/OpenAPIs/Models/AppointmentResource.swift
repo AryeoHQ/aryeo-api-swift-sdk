@@ -11,11 +11,11 @@ import AnyCodable
 #endif
 
 /** An appointment. */
-public struct AppointmentResource: Codable, Hashable {
+public struct AppointmentResource: Codable {
 
     /** What was the state of the request? */
-    public var status: String
-    public var data: Appointment?
+    public private(set) var status: String
+    public private(set) var data: Appointment?
 
     public init(status: String, data: Appointment? = nil) {
         self.status = status

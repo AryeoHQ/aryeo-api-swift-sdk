@@ -11,11 +11,11 @@ import AnyCodable
 #endif
 
 /** A group. */
-public struct GroupResource: Codable, Hashable {
+public struct GroupResource: Codable {
 
     /** What was the state of the request? */
-    public var status: String
-    public var data: Group?
+    public private(set) var status: String
+    public private(set) var data: Group?
 
     public init(status: String, data: Group? = nil) {
         self.status = status

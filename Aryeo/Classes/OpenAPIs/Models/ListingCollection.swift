@@ -11,14 +11,14 @@ import AnyCodable
 #endif
 
 /** A collection of listings. */
-public struct ListingCollection: Codable, Hashable {
+public struct ListingCollection: Codable {
 
     /** What was the state of the request? */
-    public var status: String
+    public private(set) var status: String
     /**  */
-    public var data: [Listing]?
-    public var meta: PaginationMeta?
-    public var links: PaginationLinks?
+    public private(set) var data: [Listing]?
+    public private(set) var meta: PaginationMeta?
+    public private(set) var links: PaginationLinks?
 
     public init(status: String, data: [Listing]? = nil, meta: PaginationMeta? = nil, links: PaginationLinks? = nil) {
         self.status = status

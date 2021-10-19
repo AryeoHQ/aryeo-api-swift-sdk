@@ -11,18 +11,18 @@ import AnyCodable
 #endif
 
 /** External profile URLs for an agent or brokerage group. */
-public struct SocialProfiles: Codable, Hashable {
+public struct SocialProfiles: Codable {
 
     /** URL for Facebook. */
-    public var facebookProfileUrl: String?
+    public private(set) var facebookProfileUrl: String?
     /** URL for Instagram. */
-    public var instagramProfileUrl: String?
+    public private(set) var instagramProfileUrl: String?
     /** URL for Twitter. */
-    public var twitterProfileUrl: String?
+    public private(set) var twitterProfileUrl: String?
     /** URL for LinkedIn. */
-    public var linkedinProfileUrl: String?
+    public private(set) var linkedinProfileUrl: String?
     /** URL for Zillow. */
-    public var zillowProfileUrl: String?
+    public private(set) var zillowProfileUrl: String?
 
     public init(facebookProfileUrl: String? = nil, instagramProfileUrl: String? = nil, twitterProfileUrl: String? = nil, linkedinProfileUrl: String? = nil, zillowProfileUrl: String? = nil) {
         self.facebookProfileUrl = facebookProfileUrl

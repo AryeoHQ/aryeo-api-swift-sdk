@@ -11,12 +11,12 @@ import AnyCodable
 #endif
 
 /** A category for products. */
-public struct ProductCategory: Codable, Hashable {
+public struct ProductCategory: Codable {
 
     /** ID of the product category. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The title of the product category. */
-    public var title: String
+    public private(set) var title: String
 
     public init(id: UUID, title: String) {
         self.id = id

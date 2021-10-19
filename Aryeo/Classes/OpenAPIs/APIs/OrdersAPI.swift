@@ -21,7 +21,7 @@ open class OrdersAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getOrders(sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: OrderCollection?, _ error: Error?) -> Void)) {
+    open class func getOrders(sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: OrderCollection?, _ error: Error?) -> Void)) {
         getOrdersWithRequestBuilder(sort: sort, perPage: perPage, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -46,7 +46,7 @@ open class OrdersAPI {
      */
     open class func getOrdersWithRequestBuilder(sort: String? = nil, perPage: String? = nil, page: String? = nil) -> RequestBuilder<OrderCollection> {
         let localVariablePath = "/orders"
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -62,7 +62,7 @@ open class OrdersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<OrderCollection>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<OrderCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -75,7 +75,7 @@ open class OrdersAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getOrdersId(orderId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: OrderResource?, _ error: Error?) -> Void)) {
+    open class func getOrdersId(orderId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: OrderResource?, _ error: Error?) -> Void)) {
         getOrdersIdWithRequestBuilder(orderId: orderId, include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -102,7 +102,7 @@ open class OrdersAPI {
         let orderIdPreEscape = "\(APIHelper.mapValueToPathItem(orderId))"
         let orderIdPostEscape = orderIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{order_id}", with: orderIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -116,7 +116,7 @@ open class OrdersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<OrderResource>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<OrderResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -128,13 +128,14 @@ open class OrdersAPI {
      - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
      - parameter page: (query) The requested page. Defaults to 1. (optional)
      - parameter filterSearch: (query) Return products that have fields matching this term. (optional)
+     - parameter filterIncludeInactive: (query) Include inactive products (in addition to active products) when returning products. (optional)
      - parameter filterCategoryIds: (query) Return products in the given categories. (optional)
      - parameter filterType: (query) Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: [UUID]? = nil, filterType: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: ProductCollection?, _ error: Error?) -> Void)) {
-        getProductsWithRequestBuilder(sort: sort, perPage: perPage, page: page, filterSearch: filterSearch, filterCategoryIds: filterCategoryIds, filterType: filterType).execute(apiResponseQueue) { result -> Void in
+    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterIncludeInactive: Bool? = nil, filterCategoryIds: [UUID]? = nil, filterType: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: ProductCollection?, _ error: Error?) -> Void)) {
+        getProductsWithRequestBuilder(sort: sort, perPage: perPage, page: page, filterSearch: filterSearch, filterIncludeInactive: filterIncludeInactive, filterCategoryIds: filterCategoryIds, filterType: filterType).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -155,13 +156,14 @@ open class OrdersAPI {
      - parameter perPage: (query) The number of items per page. Defaults to 25. (optional)
      - parameter page: (query) The requested page. Defaults to 1. (optional)
      - parameter filterSearch: (query) Return products that have fields matching this term. (optional)
+     - parameter filterIncludeInactive: (query) Include inactive products (in addition to active products) when returning products. (optional)
      - parameter filterCategoryIds: (query) Return products in the given categories. (optional)
      - parameter filterType: (query) Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
      - returns: RequestBuilder<ProductCollection> 
      */
-    open class func getProductsWithRequestBuilder(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: [UUID]? = nil, filterType: String? = nil) -> RequestBuilder<ProductCollection> {
+    open class func getProductsWithRequestBuilder(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterIncludeInactive: Bool? = nil, filterCategoryIds: [UUID]? = nil, filterType: String? = nil) -> RequestBuilder<ProductCollection> {
         let localVariablePath = "/products"
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -170,6 +172,7 @@ open class OrdersAPI {
             "per_page": perPage?.encodeToJSON(),
             "page": page?.encodeToJSON(),
             "filter[search]": filterSearch?.encodeToJSON(),
+            "filter[include_inactive]": filterIncludeInactive?.encodeToJSON(),
             "filter[category_ids]": filterCategoryIds?.encodeToJSON(),
             "filter[type]": filterType?.encodeToJSON(),
         ])
@@ -180,7 +183,7 @@ open class OrdersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<ProductCollection>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<ProductCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -192,7 +195,7 @@ open class OrdersAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func postOrders(orderPostPayload: OrderPostPayload? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: OrderResource?, _ error: Error?) -> Void)) {
+    open class func postOrders(orderPostPayload: OrderPostPayload? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: OrderResource?, _ error: Error?) -> Void)) {
         postOrdersWithRequestBuilder(orderPostPayload: orderPostPayload).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -215,7 +218,7 @@ open class OrdersAPI {
      */
     open class func postOrdersWithRequestBuilder(orderPostPayload: OrderPostPayload? = nil) -> RequestBuilder<OrderResource> {
         let localVariablePath = "/orders"
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: orderPostPayload)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -226,7 +229,7 @@ open class OrdersAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<OrderResource>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<OrderResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "POST", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }

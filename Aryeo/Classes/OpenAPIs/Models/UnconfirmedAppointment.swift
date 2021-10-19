@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** An unconfirmed appointment. */
-public struct UnconfirmedAppointment: Codable, Hashable {
+public struct UnconfirmedAppointment: Codable {
 
     public enum PreferenceType: String, Codable, CaseIterable {
         case asap = "ASAP"
@@ -24,24 +24,24 @@ public struct UnconfirmedAppointment: Codable, Hashable {
         case twilight = "TWILIGHT"
     }
     /** The ID of the appointment. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The title of the appointment. */
-    public var title: String?
+    public private(set) var title: String?
     /** The multi-line description of the appointment. */
-    public var description: String?
-    public var order: Order?
+    public private(set) var description: String?
+    public private(set) var order: Order?
     /** Users attached to the appointment. */
-    public var users: [User]?
+    public private(set) var users: [User]?
     /** The type of preferred scheduling information provided by a customer to aid in scheduling this appointment. */
-    public var preferenceType: PreferenceType?
+    public private(set) var preferenceType: PreferenceType?
     /** A preferred date and time (ISO 8601 format) for when the appointment could start. Only returned if unconfirmed appointment's preference type is TIME.  */
-    public var preferredStartAt: Date?
+    public private(set) var preferredStartAt: Date?
     /** A preferred date (ISO 8601 format) for when the appointment could start. Only returned if unconfirmed appointment's preference type is TIME_OF_DAY.  */
-    public var preferredStartAtDay: Date?
+    public private(set) var preferredStartAtDay: Date?
     /** A preferred time of day for when the appointment could start. Only returned if unconfirmed appointment's preference type is TIME_OF_DAY.  */
-    public var preferredStartAtTimeOfDay: PreferredStartAtTimeOfDay?
+    public private(set) var preferredStartAtTimeOfDay: PreferredStartAtTimeOfDay?
     /** The estimated length of the appointment in minutes, if available. */
-    public var duration: Int?
+    public private(set) var duration: Int?
 
     public init(id: UUID, title: String? = nil, description: String? = nil, order: Order? = nil, users: [User]? = nil, preferenceType: PreferenceType? = nil, preferredStartAt: Date? = nil, preferredStartAtDay: Date? = nil, preferredStartAtTimeOfDay: PreferredStartAtTimeOfDay? = nil, duration: Int? = nil) {
         self.id = id

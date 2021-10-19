@@ -19,7 +19,7 @@ open class VendorsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getVendors(include: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: GroupCollection?, _ error: Error?) -> Void)) {
+    open class func getVendors(include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: GroupCollection?, _ error: Error?) -> Void)) {
         getVendorsWithRequestBuilder(include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -42,7 +42,7 @@ open class VendorsAPI {
      */
     open class func getVendorsWithRequestBuilder(include: String? = nil) -> RequestBuilder<GroupCollection> {
         let localVariablePath = "/vendors"
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -56,7 +56,7 @@ open class VendorsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GroupCollection>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GroupCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -69,7 +69,7 @@ open class VendorsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getVendorsId(vendorId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: GroupResource?, _ error: Error?) -> Void)) {
+    open class func getVendorsId(vendorId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: GroupResource?, _ error: Error?) -> Void)) {
         getVendorsIdWithRequestBuilder(vendorId: vendorId, include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -96,7 +96,7 @@ open class VendorsAPI {
         let vendorIdPreEscape = "\(APIHelper.mapValueToPathItem(vendorId))"
         let vendorIdPostEscape = vendorIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{vendor_id}", with: vendorIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -110,7 +110,7 @@ open class VendorsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<GroupResource>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<GroupResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }

@@ -11,22 +11,22 @@ import AnyCodable
 #endif
 
 /** A visual representation of something. */
-public struct Image: Codable, Hashable {
+public struct Image: Codable {
 
     /** ID of the image. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** A URL for a thumbnail-sized version of the image. */
-    public var thumbnailUrl: String
+    public private(set) var thumbnailUrl: String
     /** A URL for a large version of the image. */
-    public var largeUrl: String
+    public private(set) var largeUrl: String
     /** A URL for the original, full-resolution version of the image. Useful for downloading. */
-    public var originalUrl: String
+    public private(set) var originalUrl: String
     /** The order in which the image should be displayed amongst other related images. */
-    public var index: Int?
+    public private(set) var index: Int?
     /** A brief explanation of the image. */
-    public var caption: String?
+    public private(set) var caption: String?
     /** Should the image be displayed in a gallery? */
-    public var displayInGallery: Bool
+    public private(set) var displayInGallery: Bool
 
     public init(id: UUID, thumbnailUrl: String, largeUrl: String, originalUrl: String, index: Int? = nil, caption: String? = nil, displayInGallery: Bool) {
         self.id = id

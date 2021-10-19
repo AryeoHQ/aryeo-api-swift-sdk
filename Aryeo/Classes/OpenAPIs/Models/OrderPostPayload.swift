@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** Payload for creating an order. */
-public struct OrderPostPayload: Codable, Hashable {
+public struct OrderPostPayload: Codable {
 
     public enum FulfillmentStatus: String, Codable, CaseIterable {
         case fulfilled = "FULFILLED"
@@ -22,22 +22,30 @@ public struct OrderPostPayload: Codable, Hashable {
         case unpaid = "UNPAID"
     }
     /** The fulfillment status of the order. Defaults to \"UNFULFILLED\". */
-    public var fulfillmentStatus: FulfillmentStatus?
+    public private(set) var fulfillmentStatus: FulfillmentStatus?
+    /** Internal notes that will be attached to the order. Viewable only by the team. */
+    public private(set) var internalNotes: String?
     /** The payment status of the order. Defaults to \"UNPAID\".  */
-    public var paymentStatus: PaymentStatus?
-    /** Google Places ID of the address to attach to the order. */
-    public var placeId: String?
+    public private(set) var paymentStatus: PaymentStatus?
+    /** ID of the address to associate with the order. UUID Version 4. */
+    public private(set) var addressId: UUID?
+    /** ID of the customer to associate with the order. UUID Version 4. */
+    public private(set) var customerId: UUID?
 
-    public init(fulfillmentStatus: FulfillmentStatus? = nil, paymentStatus: PaymentStatus? = nil, placeId: String? = nil) {
+    public init(fulfillmentStatus: FulfillmentStatus? = nil, internalNotes: String? = nil, paymentStatus: PaymentStatus? = nil, addressId: UUID? = nil, customerId: UUID? = nil) {
         self.fulfillmentStatus = fulfillmentStatus
+        self.internalNotes = internalNotes
         self.paymentStatus = paymentStatus
-        self.placeId = placeId
+        self.addressId = addressId
+        self.customerId = customerId
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case fulfillmentStatus = "fulfillment_status"
+        case internalNotes = "internal_notes"
         case paymentStatus = "payment_status"
-        case placeId = "place_id"
+        case addressId = "address_id"
+        case customerId = "customer_id"
     }
 
     // Encodable protocol methods
@@ -45,8 +53,10 @@ public struct OrderPostPayload: Codable, Hashable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(fulfillmentStatus, forKey: .fulfillmentStatus)
+        try container.encodeIfPresent(internalNotes, forKey: .internalNotes)
         try container.encodeIfPresent(paymentStatus, forKey: .paymentStatus)
-        try container.encodeIfPresent(placeId, forKey: .placeId)
+        try container.encodeIfPresent(addressId, forKey: .addressId)
+        try container.encodeIfPresent(customerId, forKey: .customerId)
     }
 }
 

@@ -11,14 +11,14 @@ import AnyCodable
 #endif
 
 /** Website (in branded and unbranded versions) that displays information about a property. */
-public struct PropertyWebsite: Codable, Hashable {
+public struct PropertyWebsite: Codable {
 
     /** ID of the website. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** URL for branded version of website. */
-    public var brandedUrl: String
+    public private(set) var brandedUrl: String
     /** URL for unbranded version of website. */
-    public var unbrandedUrl: String
+    public private(set) var unbrandedUrl: String
 
     public init(id: UUID, brandedUrl: String, unbrandedUrl: String) {
         self.id = id

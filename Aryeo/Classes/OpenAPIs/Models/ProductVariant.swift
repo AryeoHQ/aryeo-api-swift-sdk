@@ -11,14 +11,14 @@ import AnyCodable
 #endif
 
 /** A variant of a product. */
-public struct ProductVariant: Codable, Hashable {
+public struct ProductVariant: Codable {
 
     /** ID of the product variant. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The title of the product variant. */
-    public var title: String
+    public private(set) var title: String
     /** A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the price of the product variant. */
-    public var price: Int
+    public private(set) var price: Int
 
     public init(id: UUID, title: String, price: Int) {
         self.id = id

@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**object** | **String** | String representing the object’s type. Objects of the same type share the same schema. | [optional] 
 **id** | **UUID** | ID of the group. UUID Version 4. | 
 **type** | **String** | The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned. | 
 **name** | **String** | The name of the group. | 

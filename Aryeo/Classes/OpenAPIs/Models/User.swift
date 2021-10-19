@@ -11,22 +11,22 @@ import AnyCodable
 #endif
 
 /** A record of a person on the Aryeo platform. */
-public struct User: Codable, Hashable {
+public struct User: Codable {
 
     /** ID of the user. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** Email address of the user. */
-    public var email: String
+    public private(set) var email: String
     /** First name of the user. */
-    public var firstName: String?
+    public private(set) var firstName: String?
     /** Last name of the user. */
-    public var lastName: String?
+    public private(set) var lastName: String?
     /** A phone number represented in whichever standards specified by the user, typically ###-###-#### (separated by hyphens). */
-    public var phone: String?
+    public private(set) var phone: String?
     /** The avatar image URL of a user. */
-    public var avatarUrl: String?
+    public private(set) var avatarUrl: String?
     /** Describes user's relationship (access level) to a specified group. Only returned if this resource is returned as a sub-resource of a group. */
-    public var relationship: String?
+    public private(set) var relationship: String?
 
     public init(id: UUID, email: String, firstName: String? = nil, lastName: String? = nil, phone: String? = nil, avatarUrl: String? = nil, relationship: String? = nil) {
         self.id = id

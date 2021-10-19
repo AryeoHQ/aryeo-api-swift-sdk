@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** An appointment. */
-public struct Appointment: Codable, Hashable {
+public struct Appointment: Codable {
 
     public enum Status: String, Codable, CaseIterable {
         case scheduled = "SCHEDULED"
@@ -20,24 +20,24 @@ public struct Appointment: Codable, Hashable {
         case canceled = "CANCELED"
     }
     /** The ID of the appointment. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The status of the appointment. */
-    public var status: Status?
+    public private(set) var status: Status?
     /** The title of the appointment. */
-    public var title: String?
+    public private(set) var title: String?
     /** The multi-line description of the appointment. */
-    public var description: String?
+    public private(set) var description: String?
     /** The date and time (ISO 8601 format) when the appointment is set to start. */
-    public var startAt: Date?
+    public private(set) var startAt: Date?
     /** The date and time (ISO 8601 format) when the appointment is set to end. */
-    public var endAt: Date?
+    public private(set) var endAt: Date?
     /** The length of the appointment in minutes. */
-    public var duration: Int?
-    public var order: Order?
+    public private(set) var duration: Int?
+    public private(set) var order: Order?
     /** Users attached to the appointment. */
-    public var users: [User]?
+    public private(set) var users: [User]?
     /** Items attached to the appointment. */
-    public var items: [OrderItem]?
+    public private(set) var items: [OrderItem]?
 
     public init(id: UUID, status: Status? = nil, title: String? = nil, description: String? = nil, startAt: Date? = nil, endAt: Date? = nil, duration: Int? = nil, order: Order? = nil, users: [User]? = nil, items: [OrderItem]? = nil) {
         self.id = id

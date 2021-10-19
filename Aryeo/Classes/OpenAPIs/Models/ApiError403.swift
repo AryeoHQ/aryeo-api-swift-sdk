@@ -11,14 +11,14 @@ import AnyCodable
 #endif
 
 /** A forbidden error returned by the API. */
-public struct ApiError403: Codable, Hashable {
+public struct ApiError403: Codable {
 
     /** What was the state of the request? */
-    public var status: String
+    public private(set) var status: String
     /** The error message. */
-    public var message: String
+    public private(set) var message: String
     /** A numeric code corresponding to the error. */
-    public var code: Int?
+    public private(set) var code: Int?
 
     public init(status: String, message: String, code: Int? = nil) {
         self.status = status

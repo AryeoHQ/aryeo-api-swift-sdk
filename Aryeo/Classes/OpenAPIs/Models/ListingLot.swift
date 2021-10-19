@@ -11,12 +11,12 @@ import AnyCodable
 #endif
 
 /** Parcel data of the lot of a listing. Includes nearly everything about the land that makes up the listing. */
-public struct ListingLot: Codable, Hashable {
+public struct ListingLot: Codable {
 
     /** Total area of the lot of a listing in acres.  */
-    public var sizeAcres: Double?
+    public private(set) var sizeAcres: Double?
     /** Number of parking spaces. */
-    public var openParkingSpaces: Double?
+    public private(set) var openParkingSpaces: Double?
 
     public init(sizeAcres: Double? = nil, openParkingSpaces: Double? = nil) {
         self.sizeAcres = sizeAcres

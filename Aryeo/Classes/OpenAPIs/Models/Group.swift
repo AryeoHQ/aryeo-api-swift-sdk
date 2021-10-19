@@ -11,44 +11,47 @@ import AnyCodable
 #endif
 
 /** A collection of users that can interact with the Aryeo platform. Permissions and properties are determined based on the group&#39;s type which can be creator, agent, or brokerage. */
-public struct Group: Codable, Hashable {
+public struct Group: Codable {
 
     public enum ModelType: String, Codable, CaseIterable {
         case creator = "CREATOR"
         case agent = "AGENT"
         case brokerage = "BROKERAGE"
     }
+    /** String representing the object’s type. Objects of the same type share the same schema. */
+    public private(set) var object: String?
     /** ID of the group. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The type of the group. Can be CREATOR, AGENT, or BROKERAGE, and may dictate the attributes of the group returned. */
-    public var type: ModelType
+    public private(set) var type: ModelType
     /** The name of the group. */
-    public var name: String
+    public private(set) var name: String
     /** The email address of a group. */
-    public var email: String?
+    public private(set) var email: String?
     /** A phone number represented in whichever standards specified by the group, typically ###-###-#### (separated by hyphens). */
-    public var phone: String?
+    public private(set) var phone: String?
     /** The website URL of a group. */
-    public var websiteUrl: String?
+    public private(set) var websiteUrl: String?
     /** The logo URL of a group. */
-    public var logoUrl: String?
+    public private(set) var logoUrl: String?
     /** The profile image URL of a real estate agent. Only returned if group's type is AGENT. */
-    public var avatarUrl: String?
+    public private(set) var avatarUrl: String?
     /** The name of the brokerage or team of a real estate agent. Only returned if group's type is AGENT. */
-    public var officeName: String?
+    public private(set) var officeName: String?
     /** The license number of a real estate agent. Only returned if group's type is AGENT. */
-    public var licenseNumber: String?
-    public var socialProfiles: SocialProfiles?
-    public var defaultOrderForm: OrderForm?
+    public private(set) var licenseNumber: String?
+    public private(set) var socialProfiles: SocialProfiles?
+    public private(set) var defaultOrderForm: OrderForm?
     /** An array of order forms a vendor group provides for placing orders. Only returned if group's type is CREATOR.  */
-    public var orderForms: [OrderForm]?
-    public var owner: User?
+    public private(set) var orderForms: [OrderForm]?
+    public private(set) var owner: User?
     /** The Aryeo users associated with this group. */
-    public var users: [User]?
+    public private(set) var users: [User]?
     /** Does this group represent a brokerage or an agent who belongs to a brokerage? */
-    public var isBrokerageOrBrokerageAgent: Bool
+    public private(set) var isBrokerageOrBrokerageAgent: Bool
 
-    public init(id: UUID, type: ModelType, name: String, email: String? = nil, phone: String? = nil, websiteUrl: String? = nil, logoUrl: String? = nil, avatarUrl: String? = nil, officeName: String? = nil, licenseNumber: String? = nil, socialProfiles: SocialProfiles? = nil, defaultOrderForm: OrderForm? = nil, orderForms: [OrderForm]? = nil, owner: User? = nil, users: [User]? = nil, isBrokerageOrBrokerageAgent: Bool) {
+    public init(object: String? = nil, id: UUID, type: ModelType, name: String, email: String? = nil, phone: String? = nil, websiteUrl: String? = nil, logoUrl: String? = nil, avatarUrl: String? = nil, officeName: String? = nil, licenseNumber: String? = nil, socialProfiles: SocialProfiles? = nil, defaultOrderForm: OrderForm? = nil, orderForms: [OrderForm]? = nil, owner: User? = nil, users: [User]? = nil, isBrokerageOrBrokerageAgent: Bool) {
+        self.object = object
         self.id = id
         self.type = type
         self.name = name
@@ -68,6 +71,7 @@ public struct Group: Codable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case object
         case id
         case type
         case name
@@ -90,6 +94,7 @@ public struct Group: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(object, forKey: .object)
         try container.encode(id, forKey: .id)
         try container.encode(type, forKey: .type)
         try container.encode(name, forKey: .name)

@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**object** | **String** | String representing the object’s type. Objects of the same type share the same schema. | 
 **id** | **UUID** | ID of the listing. UUID Version 4. | 
 **address** | [**Address**](Address.md) |  | 
 **mlsNumber** | **String** | The identifier for a listing on its local MLS.  | [optional] 

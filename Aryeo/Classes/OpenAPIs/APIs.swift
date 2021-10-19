@@ -6,14 +6,10 @@
 
 import Foundation
 
-// We reverted the change of AryeoAPI to Aryeo introduced in https://github.com/OpenAPITools/openapi-generator/pull/9624
-// Because it was causing the following issue https://github.com/OpenAPITools/openapi-generator/issues/9953
-// If you are affected by this issue, please consider removing the following two lines,
-// By setting the option removeMigrationProjectNameClass to true in the generator
-@available(*, deprecated, renamed: "AryeoAPI")
-public typealias Aryeo = AryeoAPI
+@available(*, deprecated, renamed: "Aryeo")
+public typealias AryeoAPI = Aryeo
 
-open class AryeoAPI {
+open class Aryeo {
     public static var basePath = "https://api.aryeo.com/v1"
     public static var customHeaders: [String: String] = [:]
     public static var credential: URLCredential?
@@ -39,7 +35,7 @@ open class RequestBuilder<T> {
         self.parameters = parameters
         self.headers = headers
 
-        addHeaders(AryeoAPI.customHeaders)
+        addHeaders(Aryeo.customHeaders)
     }
 
     open func addHeaders(_ aHeaders: [String: String]) {
@@ -48,7 +44,7 @@ open class RequestBuilder<T> {
         }
     }
 
-    open func execute(_ apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, Error>) -> Void) { }
+    open func execute(_ apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, _ completion: @escaping (_ result: Swift.Result<Response<T>, Error>) -> Void) { }
 
     public func addHeader(name: String, value: String) -> Self {
         if !value.isEmpty {
@@ -58,7 +54,7 @@ open class RequestBuilder<T> {
     }
 
     open func addCredential() -> Self {
-        credential = AryeoAPI.credential
+        credential = Aryeo.credential
         return self
     }
 }

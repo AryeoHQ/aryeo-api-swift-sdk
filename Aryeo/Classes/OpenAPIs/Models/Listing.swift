@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** A real estate listing. */
-public struct Listing: Codable, Hashable {
+public struct Listing: Codable {
 
     public enum ModelType: String, Codable, CaseIterable {
         case businessOpportunity = "BUSINESS_OPPORTUNITY"
@@ -58,41 +58,44 @@ public struct Listing: Codable, Hashable {
         case pending = "PENDING"
         case withdrawn = "WITHDRAWN"
     }
+    /** String representing the object’s type. Objects of the same type share the same schema. */
+    public private(set) var object: String
     /** ID of the listing. UUID Version 4. */
-    public var id: UUID
-    public var address: Address
+    public private(set) var id: UUID
+    public private(set) var address: Address
     /** The identifier for a listing on its local MLS.  */
-    public var mlsNumber: String?
+    public private(set) var mlsNumber: String?
     /** General type of the listing, primarily categorizing its use case. Examples include residential and commercial.  */
-    public var type: ModelType?
+    public private(set) var type: ModelType?
     /** Further specifies the listing type. Examples include family residence and condominium. */
-    public var subType: SubType?
+    public private(set) var subType: SubType?
     /** Local, regional, or otherwise custom status for the listing used by the parties involved in the listing transaction. While variable, these statuses are typically mapped to the listing's standard status. */
-    public var status: Status?
+    public private(set) var status: Status?
     /** The status of the listing as it reflects the state of the contract between the listing agent and seller or an agreement with a buyer, including Active, Active Under Contract, Canceled, Closed, Expired, Pending, and Withdrawn. */
-    public var standardStatus: StandardStatus?
+    public private(set) var standardStatus: StandardStatus?
     /** Description of the selling points of the building and/or land for sale.  */
-    public var description: String?
-    public var lot: ListingLot?
-    public var building: ListingBuilding?
-    public var price: ListingPrice?
-    public var listAgent: Group?
-    public var coListAgent: Group?
+    public private(set) var description: String?
+    public private(set) var lot: ListingLot?
+    public private(set) var building: ListingBuilding?
+    public private(set) var price: ListingPrice?
+    public private(set) var listAgent: Group?
+    public private(set) var coListAgent: Group?
     /** images */
-    public var images: [Image]?
+    public private(set) var images: [Image]?
     /** videos */
-    public var videos: [Video]?
+    public private(set) var videos: [Video]?
     /** floor_plans */
-    public var floorPlans: [FloorPlan]?
+    public private(set) var floorPlans: [FloorPlan]?
     /** interactive_content */
-    public var interactiveContent: [InteractiveContent]?
-    public var propertyWebsite: PropertyWebsite?
+    public private(set) var interactiveContent: [InteractiveContent]?
+    public private(set) var propertyWebsite: PropertyWebsite?
     /** orders */
-    public var orders: [Order]?
+    public private(set) var orders: [Order]?
     /** Are downloads enabled for this listing? */
-    public var downloadsEnabled: Bool
+    public private(set) var downloadsEnabled: Bool
 
-    public init(id: UUID, address: Address, mlsNumber: String? = nil, type: ModelType? = nil, subType: SubType? = nil, status: Status? = nil, standardStatus: StandardStatus? = nil, description: String? = nil, lot: ListingLot? = nil, building: ListingBuilding? = nil, price: ListingPrice? = nil, listAgent: Group? = nil, coListAgent: Group? = nil, images: [Image]? = nil, videos: [Video]? = nil, floorPlans: [FloorPlan]? = nil, interactiveContent: [InteractiveContent]? = nil, propertyWebsite: PropertyWebsite? = nil, orders: [Order]? = nil, downloadsEnabled: Bool) {
+    public init(object: String, id: UUID, address: Address, mlsNumber: String? = nil, type: ModelType? = nil, subType: SubType? = nil, status: Status? = nil, standardStatus: StandardStatus? = nil, description: String? = nil, lot: ListingLot? = nil, building: ListingBuilding? = nil, price: ListingPrice? = nil, listAgent: Group? = nil, coListAgent: Group? = nil, images: [Image]? = nil, videos: [Video]? = nil, floorPlans: [FloorPlan]? = nil, interactiveContent: [InteractiveContent]? = nil, propertyWebsite: PropertyWebsite? = nil, orders: [Order]? = nil, downloadsEnabled: Bool) {
+        self.object = object
         self.id = id
         self.address = address
         self.mlsNumber = mlsNumber
@@ -116,6 +119,7 @@ public struct Listing: Codable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
+        case object
         case id
         case address
         case mlsNumber = "mls_number"
@@ -142,6 +146,7 @@ public struct Listing: Codable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(object, forKey: .object)
         try container.encode(id, forKey: .id)
         try container.encode(address, forKey: .address)
         try container.encodeIfPresent(mlsNumber, forKey: .mlsNumber)

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** A 3D virtual tour. */
-public struct InteractiveContent: Codable, Hashable {
+public struct InteractiveContent: Codable {
 
     public enum DisplayType: String, Codable, CaseIterable {
         case branded = "BRANDED"
@@ -23,15 +23,15 @@ public struct InteractiveContent: Codable, Hashable {
         case other = "OTHER"
     }
     /** ID of the content. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** Is the content branded, unbranded, or both? */
-    public var displayType: DisplayType
+    public private(set) var displayType: DisplayType
     /** The type of interactive content. */
-    public var contentType: ContentType
+    public private(set) var contentType: ContentType
     /** URL for the content. */
-    public var url: String
+    public private(set) var url: String
     /** A URL for a thumbnail-sized preview of the content. */
-    public var thumbnailUrl: String?
+    public private(set) var thumbnailUrl: String?
 
     public init(id: UUID, displayType: DisplayType, contentType: ContentType, url: String, thumbnailUrl: String? = nil) {
         self.id = id

@@ -34,7 +34,7 @@ open class AppointmentsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getAppointments(include: String? = nil, filterTense: FilterTense_getAppointments? = nil, filterStartAtGte: Date? = nil, filterStartAtLte: Date? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: AppointmentCollection?, _ error: Error?) -> Void)) {
+    open class func getAppointments(include: String? = nil, filterTense: FilterTense_getAppointments? = nil, filterStartAtGte: Date? = nil, filterStartAtLte: Date? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: AppointmentCollection?, _ error: Error?) -> Void)) {
         getAppointmentsWithRequestBuilder(include: include, filterTense: filterTense, filterStartAtGte: filterStartAtGte, filterStartAtLte: filterStartAtLte, filterUserIds: filterUserIds, sort: sort, perPage: perPage, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -64,7 +64,7 @@ open class AppointmentsAPI {
      */
     open class func getAppointmentsWithRequestBuilder(include: String? = nil, filterTense: FilterTense_getAppointments? = nil, filterStartAtGte: Date? = nil, filterStartAtLte: Date? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil) -> RequestBuilder<AppointmentCollection> {
         let localVariablePath = "/appointments"
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -85,7 +85,7 @@ open class AppointmentsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AppointmentCollection>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AppointmentCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -101,7 +101,7 @@ open class AppointmentsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getUnconfirmedAppointments(include: String? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: UnconfirmedAppointmentCollection?, _ error: Error?) -> Void)) {
+    open class func getUnconfirmedAppointments(include: String? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: UnconfirmedAppointmentCollection?, _ error: Error?) -> Void)) {
         getUnconfirmedAppointmentsWithRequestBuilder(include: include, filterUserIds: filterUserIds, sort: sort, perPage: perPage, page: page).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -128,7 +128,7 @@ open class AppointmentsAPI {
      */
     open class func getUnconfirmedAppointmentsWithRequestBuilder(include: String? = nil, filterUserIds: [UUID]? = nil, sort: String? = nil, perPage: String? = nil, page: String? = nil) -> RequestBuilder<UnconfirmedAppointmentCollection> {
         let localVariablePath = "/unconfirmed-appointments"
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -146,7 +146,7 @@ open class AppointmentsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<UnconfirmedAppointmentCollection>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<UnconfirmedAppointmentCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -159,7 +159,7 @@ open class AppointmentsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func getUnconfirmedAppointmentsId(unconfirmedAppointmentId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: UnconfirmedAppointmentResource?, _ error: Error?) -> Void)) {
+    open class func getUnconfirmedAppointmentsId(unconfirmedAppointmentId: UUID, include: String? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: UnconfirmedAppointmentResource?, _ error: Error?) -> Void)) {
         getUnconfirmedAppointmentsIdWithRequestBuilder(unconfirmedAppointmentId: unconfirmedAppointmentId, include: include).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -186,7 +186,7 @@ open class AppointmentsAPI {
         let unconfirmedAppointmentIdPreEscape = "\(APIHelper.mapValueToPathItem(unconfirmedAppointmentId))"
         let unconfirmedAppointmentIdPostEscape = unconfirmedAppointmentIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{unconfirmed_appointment_id}", with: unconfirmedAppointmentIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters: [String: Any]? = nil
 
         var localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -200,7 +200,7 @@ open class AppointmentsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<UnconfirmedAppointmentResource>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<UnconfirmedAppointmentResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -213,7 +213,7 @@ open class AppointmentsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putAppointmentsAppointmentIdCancel(appointmentId: UUID, appointmentCancelPutPayload: AppointmentCancelPutPayload? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: AppointmentResource?, _ error: Error?) -> Void)) {
+    open class func putAppointmentsAppointmentIdCancel(appointmentId: UUID, appointmentCancelPutPayload: AppointmentCancelPutPayload? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: AppointmentResource?, _ error: Error?) -> Void)) {
         putAppointmentsAppointmentIdCancelWithRequestBuilder(appointmentId: appointmentId, appointmentCancelPutPayload: appointmentCancelPutPayload).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -240,7 +240,7 @@ open class AppointmentsAPI {
         let appointmentIdPreEscape = "\(APIHelper.mapValueToPathItem(appointmentId))"
         let appointmentIdPostEscape = appointmentIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{appointment_id}", with: appointmentIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: appointmentCancelPutPayload)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -251,7 +251,7 @@ open class AppointmentsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AppointmentResource>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AppointmentResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PUT", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }
@@ -264,7 +264,7 @@ open class AppointmentsAPI {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func putAppointmentsAppointmentIdReschedule(appointmentId: UUID, appointmentReschedulePutPayload: AppointmentReschedulePutPayload? = nil, apiResponseQueue: DispatchQueue = AryeoAPI.apiResponseQueue, completion: @escaping ((_ data: AppointmentResource?, _ error: Error?) -> Void)) {
+    open class func putAppointmentsAppointmentIdReschedule(appointmentId: UUID, appointmentReschedulePutPayload: AppointmentReschedulePutPayload? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: AppointmentResource?, _ error: Error?) -> Void)) {
         putAppointmentsAppointmentIdRescheduleWithRequestBuilder(appointmentId: appointmentId, appointmentReschedulePutPayload: appointmentReschedulePutPayload).execute(apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
@@ -291,7 +291,7 @@ open class AppointmentsAPI {
         let appointmentIdPreEscape = "\(APIHelper.mapValueToPathItem(appointmentId))"
         let appointmentIdPostEscape = appointmentIdPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         localVariablePath = localVariablePath.replacingOccurrences(of: "{appointment_id}", with: appointmentIdPostEscape, options: .literal, range: nil)
-        let localVariableURLString = AryeoAPI.basePath + localVariablePath
+        let localVariableURLString = Aryeo.basePath + localVariablePath
         let localVariableParameters = JSONEncodingHelper.encodingParameters(forEncodableObject: appointmentReschedulePutPayload)
 
         let localVariableUrlComponents = URLComponents(string: localVariableURLString)
@@ -302,7 +302,7 @@ open class AppointmentsAPI {
 
         let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
 
-        let localVariableRequestBuilder: RequestBuilder<AppointmentResource>.Type = AryeoAPI.requestBuilderFactory.getBuilder()
+        let localVariableRequestBuilder: RequestBuilder<AppointmentResource>.Type = Aryeo.requestBuilderFactory.getBuilder()
 
         return localVariableRequestBuilder.init(method: "PUT", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
     }

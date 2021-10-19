@@ -11,42 +11,42 @@ import AnyCodable
 #endif
 
 /** A street address and additional metadata about a location. */
-public struct Address: Codable, Hashable {
+public struct Address: Codable {
 
     /** ID of the address. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The geographic latitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol. */
-    public var latitude: Double
+    public private(set) var latitude: Double
     /** The geographic longitude of some reference point of the location, specified in degrees and decimal parts. Positive numbers must not include the plus symbol. */
-    public var longitude: Double
+    public private(set) var longitude: Double
     /** The street number portion of a location's address. In some areas, the street number may contain non-numeric characters. This field can also contain extensions and modifiers to the street number, such as \"1/2\" or \"-B\". */
-    public var streetNumber: String?
+    public private(set) var streetNumber: String?
     /** The street name portion of a location's address. */
-    public var streetName: String?
+    public private(set) var streetName: String?
     /** The number or portion of a larger building or complex. Examples are: \"APT G\", \"55\", etc. */
-    public var unitNumber: String?
+    public private(set) var unitNumber: String?
     /** The postal code portion of a location's address. */
-    public var postalCode: String?
+    public private(set) var postalCode: String?
     /** The city of a location's address. */
-    public var city: String?
+    public private(set) var city: String?
     /** A sub-section or area of a defined city. Examples would be SoHo in New York, NY, Ironbound in Newark, NJ or Inside the Beltway. */
-    public var cityRegion: String?
+    public private(set) var cityRegion: String?
     /** The County, Parish or other regional authority of the location. */
-    public var countyOrParish: String?
+    public private(set) var countyOrParish: String?
     /** The ISO 3166-2 subdivision code for the state or province of the location. For example, “MA” for Massachusetts, United States. */
-    public var stateOrProvince: String?
+    public private(set) var stateOrProvince: String?
     /** A sub-section or area of a defined state or province. Examples would be the Keys in FL or Hudson Valley in NY. */
-    public var stateOrProvinceRegion: String?
+    public private(set) var stateOrProvinceRegion: String?
     /** The ISO 3166-1 country code for this for the country of the location. */
-    public var country: String?
+    public private(set) var country: String?
     /** A sub-section or area of a defined country. Examples would be Napa Valley in the US, or the Amalfi Coast in Italy. */
-    public var countryRegion: String?
+    public private(set) var countryRegion: String?
     /** Unparsed text representation of the address.  */
-    public var unparsedAddress: String?
+    public private(set) var unparsedAddress: String?
     /** Unparsed text representation of the first part of the address, typically including the street number, street name, and unit number if applicable.   */
-    public var unparsedAddressPartOne: String?
+    public private(set) var unparsedAddressPartOne: String?
     /** Unparsed text representation of the second part of the address, typically including the city, state or province, and postal code.   */
-    public var unparsedAddressPartTwo: String?
+    public private(set) var unparsedAddressPartTwo: String?
 
     public init(id: UUID, latitude: Double, longitude: Double, streetNumber: String? = nil, streetName: String? = nil, unitNumber: String? = nil, postalCode: String? = nil, city: String? = nil, cityRegion: String? = nil, countyOrParish: String? = nil, stateOrProvince: String? = nil, stateOrProvinceRegion: String? = nil, country: String? = nil, countryRegion: String? = nil, unparsedAddress: String? = nil, unparsedAddressPartOne: String? = nil, unparsedAddressPartTwo: String? = nil) {
         self.id = id

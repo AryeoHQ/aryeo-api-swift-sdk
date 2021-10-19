@@ -11,10 +11,10 @@ import AnyCodable
 #endif
 
 /** Payload for canceling an appointment record. */
-public struct AppointmentCancelPutPayload: Codable, Hashable {
+public struct AppointmentCancelPutPayload: Codable {
 
     /** Sends a notification to the appointment's order's customer that the appointment was canceled. */
-    public var notifyCustomer: Bool?
+    public private(set) var notifyCustomer: Bool?
 
     public init(notifyCustomer: Bool? = nil) {
         self.notifyCustomer = notifyCustomer

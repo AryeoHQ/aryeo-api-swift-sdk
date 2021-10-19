@@ -11,10 +11,10 @@ import AnyCodable
 #endif
 
 /** A processing or validation failure returned by the API. */
-public struct ApiFail422: Codable, Hashable {
+public struct ApiFail422: Codable {
 
     /** What was the state of the request? */
-    public var status: String
+    public private(set) var status: String
 
     public init(status: String) {
         self.status = status

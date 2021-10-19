@@ -20,7 +20,7 @@ List all appointments.
 
 List all appointments. By default, returns a list of appointments that have been scheduled and have not been canceled
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -84,7 +84,7 @@ List all unconfirmed appointments.
 
 List all unconfirmed appointments. These are appointments that have not been scheduled. 
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -142,7 +142,7 @@ Retrieve an unconfirmed appointment.
 
 Retrieves the details of an unconfirmed appointment with the given ID.
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -194,7 +194,7 @@ Cancel an appointment.
 
 Cancel an appointment. The appointments order's customer can be optionally notified of this change. 
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -246,7 +246,7 @@ Reschedule an appointment.
 
 Reschedule an appointment. The appointments order's customer can be optionally notified of this change. 
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo

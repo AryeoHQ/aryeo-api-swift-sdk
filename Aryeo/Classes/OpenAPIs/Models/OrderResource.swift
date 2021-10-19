@@ -11,11 +11,11 @@ import AnyCodable
 #endif
 
 /** An order. */
-public struct OrderResource: Codable, Hashable {
+public struct OrderResource: Codable {
 
     /** What was the state of the request? */
-    public var status: String
-    public var data: Order?
+    public private(set) var status: String
+    public private(set) var data: Order?
 
     public init(status: String, data: Order? = nil) {
         self.status = status

@@ -11,7 +11,7 @@ import AnyCodable
 #endif
 
 /** A recording of moving visual images. Provided either as a download URL (MP4) or a link (e.g. YouTube, Vimeo). */
-public struct Video: Codable, Hashable {
+public struct Video: Codable {
 
     public enum DisplayType: String, Codable, CaseIterable {
         case branded = "BRANDED"
@@ -27,23 +27,23 @@ public struct Video: Codable, Hashable {
         case link = "LINK"
     }
     /** ID of the video. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The title of the video given by the uploading user. */
-    public var title: String?
+    public private(set) var title: String?
     /** The video's runtime in seconds. */
-    public var duration: Int?
+    public private(set) var duration: Int?
     /** The display type determines if the video is branded or unbranded (can also be none or both). This affects whether the video is displayed on branded or unbranded marketing materials such as the property website. */
-    public var displayType: DisplayType
+    public private(set) var displayType: DisplayType
     /** The original upload source of the video, used to determine how to handle the playback_url of the video and other display properties.  */
-    public var sourceType: SourceType
+    public private(set) var sourceType: SourceType
     /** A thumbnail image URL for the video. */
-    public var thumbnailUrl: String
+    public private(set) var thumbnailUrl: String
     /** A URL linking to playback stream of the video. */
-    public var playbackUrl: String
+    public private(set) var playbackUrl: String
     /** A URL for downloading the video. */
-    public var downloadUrl: String?
+    public private(set) var downloadUrl: String?
     /** A URL linking to a public viewing optimized webpage the video. */
-    public var shareUrl: String?
+    public private(set) var shareUrl: String?
 
     public init(id: UUID, title: String? = nil, duration: Int? = nil, displayType: DisplayType, sourceType: SourceType, thumbnailUrl: String, playbackUrl: String, downloadUrl: String? = nil, shareUrl: String? = nil) {
         self.id = id

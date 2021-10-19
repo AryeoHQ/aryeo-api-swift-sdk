@@ -17,7 +17,7 @@ List all listings.
 
 Lists all listings available to a group.
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -99,7 +99,7 @@ Retrieve a listing.
 
 Retrieves the details of a listing with the given ID.
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo

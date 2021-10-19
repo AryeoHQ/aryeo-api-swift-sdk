@@ -11,16 +11,16 @@ import AnyCodable
 #endif
 
 /** Structural data of the primary building on a listing. Includes everything from square footage of certain spaces to construction dates.  */
-public struct ListingBuilding: Codable, Hashable {
+public struct ListingBuilding: Codable {
 
     /** Total number of bedrooms. */
-    public var bedrooms: Int?
+    public private(set) var bedrooms: Int?
     /** Sum of the number of bathrooms. Represented as a number in order to support half-baths. */
-    public var bathrooms: Double?
+    public private(set) var bathrooms: Double?
     /** Total number of square feet. */
-    public var squareFeet: Double?
+    public private(set) var squareFeet: Double?
     /** Year the property was built. */
-    public var yearBuilt: Int?
+    public private(set) var yearBuilt: Int?
 
     public init(bedrooms: Int? = nil, bathrooms: Double? = nil, squareFeet: Double? = nil, yearBuilt: Int? = nil) {
         self.bedrooms = bedrooms

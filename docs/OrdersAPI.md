@@ -19,7 +19,7 @@ List all orders.
 
 Lists all orders of a group.
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -73,7 +73,7 @@ Retrieve an order.
 
 Retrieves the details of an order with the given ID.
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -118,14 +118,14 @@ Name | Type | Description  | Notes
 
 # **getProducts**
 ```swift
-    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterCategoryIds: [UUID]? = nil, filterType: String? = nil, completion: @escaping (_ data: ProductCollection?, _ error: Error?) -> Void)
+    open class func getProducts(sort: String? = nil, perPage: String? = nil, page: String? = nil, filterSearch: String? = nil, filterIncludeInactive: Bool? = nil, filterCategoryIds: [UUID]? = nil, filterType: String? = nil, completion: @escaping (_ data: ProductCollection?, _ error: Error?) -> Void)
 ```
 
 List all products.
 
 List all products of a group.
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
@@ -134,11 +134,12 @@ let sort = "sort_example" // String | Comma separated list of fields used for so
 let perPage = "perPage_example" // String | The number of items per page. Defaults to 25. (optional)
 let page = "page_example" // String | The requested page. Defaults to 1. (optional)
 let filterSearch = "filterSearch_example" // String | Return products that have fields matching this term. (optional)
+let filterIncludeInactive = true // Bool | Include inactive products (in addition to active products) when returning products. (optional)
 let filterCategoryIds = [123] // [UUID] | Return products in the given categories. (optional)
 let filterType = "filterType_example" // String | Return products matching the given type. Allowed values are: MAIN, ADDON. (optional)
 
 // List all products.
-OrdersAPI.getProducts(sort: sort, perPage: perPage, page: page, filterSearch: filterSearch, filterCategoryIds: filterCategoryIds, filterType: filterType) { (response, error) in
+OrdersAPI.getProducts(sort: sort, perPage: perPage, page: page, filterSearch: filterSearch, filterIncludeInactive: filterIncludeInactive, filterCategoryIds: filterCategoryIds, filterType: filterType) { (response, error) in
     guard error == nil else {
         print(error)
         return
@@ -158,6 +159,7 @@ Name | Type | Description  | Notes
  **perPage** | **String** | The number of items per page. Defaults to 25. | [optional] 
  **page** | **String** | The requested page. Defaults to 1. | [optional] 
  **filterSearch** | **String** | Return products that have fields matching this term. | [optional] 
+ **filterIncludeInactive** | **Bool** | Include inactive products (in addition to active products) when returning products. | [optional] 
  **filterCategoryIds** | [**[UUID]**](UUID.md) | Return products in the given categories. | [optional] 
  **filterType** | **String** | Return products matching the given type. Allowed values are: MAIN, ADDON. | [optional] 
 
@@ -185,12 +187,12 @@ Create an order.
 
 Create an order.
 
-### Example
+### Example 
 ```swift
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
-let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", paymentStatus: "paymentStatus_example", placeId: "placeId_example") // OrderPostPayload | OrderPostPayload (optional)
+let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", internalNotes: "internalNotes_example", paymentStatus: "paymentStatus_example", addressId: 123, customerId: 123) // OrderPostPayload | OrderPostPayload (optional)
 
 // Create an order.
 OrdersAPI.postOrders(orderPostPayload: orderPostPayload) { (response, error) in

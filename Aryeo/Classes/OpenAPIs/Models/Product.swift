@@ -11,27 +11,30 @@ import AnyCodable
 #endif
 
 /** A product available for purchase via an order. */
-public struct Product: Codable, Hashable {
+public struct Product: Codable {
 
     public enum ModelType: String, Codable, CaseIterable {
         case main = "MAIN"
         case addon = "ADDON"
     }
     /** ID of the product. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The title of the product. */
-    public var title: String
+    public private(set) var title: String
     /** The description of the product. */
-    public var description: String?
+    public private(set) var description: String?
+    /** The active status of a product. */
+    public private(set) var active: Bool?
     /** The type of product. */
-    public var type: ModelType
-    public var variants: [ProductVariant]?
-    public var categories: [ProductCategory]?
+    public private(set) var type: ModelType
+    public private(set) var variants: [ProductVariant]?
+    public private(set) var categories: [ProductCategory]?
 
-    public init(id: UUID, title: String, description: String? = nil, type: ModelType, variants: [ProductVariant]? = nil, categories: [ProductCategory]? = nil) {
+    public init(id: UUID, title: String, description: String? = nil, active: Bool? = nil, type: ModelType, variants: [ProductVariant]? = nil, categories: [ProductCategory]? = nil) {
         self.id = id
         self.title = title
         self.description = description
+        self.active = active
         self.type = type
         self.variants = variants
         self.categories = categories
@@ -41,6 +44,7 @@ public struct Product: Codable, Hashable {
         case id
         case title
         case description
+        case active
         case type
         case variants
         case categories
@@ -53,6 +57,7 @@ public struct Product: Codable, Hashable {
         try container.encode(id, forKey: .id)
         try container.encode(title, forKey: .title)
         try container.encodeIfPresent(description, forKey: .description)
+        try container.encodeIfPresent(active, forKey: .active)
         try container.encode(type, forKey: .type)
         try container.encodeIfPresent(variants, forKey: .variants)
         try container.encodeIfPresent(categories, forKey: .categories)

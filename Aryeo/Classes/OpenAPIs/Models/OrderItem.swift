@@ -11,18 +11,18 @@ import AnyCodable
 #endif
 
 /** A product associated with an order. */
-public struct OrderItem: Codable, Hashable {
+public struct OrderItem: Codable {
 
     /** ID of the item. UUID Version 4. */
-    public var id: UUID
+    public private(set) var id: UUID
     /** The title of the item. */
-    public var title: String?
+    public private(set) var title: String?
     /** The description of the item. */
-    public var description: String?
+    public private(set) var description: String?
     /** A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the cost of a single instance of this item. This is multiplied by the quantity to calculate what was or will be charged. */
-    public var amount: Int?
+    public private(set) var amount: Int?
     /** A positive integer representing the number of instances of this item that was or will be charged. */
-    public var quantity: Int?
+    public private(set) var quantity: Int?
 
     public init(id: UUID, title: String? = nil, description: String? = nil, amount: Int? = nil, quantity: Int? = nil) {
         self.id = id

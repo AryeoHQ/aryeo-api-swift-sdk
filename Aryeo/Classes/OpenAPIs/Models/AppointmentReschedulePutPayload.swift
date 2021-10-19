@@ -11,14 +11,14 @@ import AnyCodable
 #endif
 
 /** Payload for rescheduling an appointment record. */
-public struct AppointmentReschedulePutPayload: Codable, Hashable {
+public struct AppointmentReschedulePutPayload: Codable {
 
     /** The new date and time (ISO 8601 format) when the appointment is set to start. */
-    public var startAt: Date?
+    public private(set) var startAt: Date?
     /** The new date and time (ISO 8601 format) when the appointment is set to end. */
-    public var endAt: Date?
+    public private(set) var endAt: Date?
     /** Send a notification to the appointment's order's customer that the appointment was rescheduled. */
-    public var notifyCustomer: Bool?
+    public private(set) var notifyCustomer: Bool?
 
     public init(startAt: Date?, endAt: Date?, notifyCustomer: Bool? = nil) {
         self.startAt = startAt
