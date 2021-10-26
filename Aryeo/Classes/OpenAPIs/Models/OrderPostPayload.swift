@@ -31,13 +31,16 @@ public struct OrderPostPayload: Codable {
     public private(set) var addressId: UUID?
     /** ID of the customer to associate with the order. UUID Version 4. */
     public private(set) var customerId: UUID?
+    /** Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent. */
+    public private(set) var notify: Bool?
 
-    public init(fulfillmentStatus: FulfillmentStatus? = nil, internalNotes: String? = nil, paymentStatus: PaymentStatus? = nil, addressId: UUID? = nil, customerId: UUID? = nil) {
+    public init(fulfillmentStatus: FulfillmentStatus? = nil, internalNotes: String? = nil, paymentStatus: PaymentStatus? = nil, addressId: UUID? = nil, customerId: UUID? = nil, notify: Bool? = nil) {
         self.fulfillmentStatus = fulfillmentStatus
         self.internalNotes = internalNotes
         self.paymentStatus = paymentStatus
         self.addressId = addressId
         self.customerId = customerId
+        self.notify = notify
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -46,6 +49,7 @@ public struct OrderPostPayload: Codable {
         case paymentStatus = "payment_status"
         case addressId = "address_id"
         case customerId = "customer_id"
+        case notify
     }
 
     // Encodable protocol methods
@@ -57,6 +61,7 @@ public struct OrderPostPayload: Codable {
         try container.encodeIfPresent(paymentStatus, forKey: .paymentStatus)
         try container.encodeIfPresent(addressId, forKey: .addressId)
         try container.encodeIfPresent(customerId, forKey: .customerId)
+        try container.encodeIfPresent(notify, forKey: .notify)
     }
 }
 
