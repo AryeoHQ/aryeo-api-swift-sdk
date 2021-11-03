@@ -19,17 +19,21 @@ public struct ProductVariant: Codable {
     public private(set) var title: String
     /** A positive integer in the smallest currency unit (that is, 100 cents for $1.00) representing the price of the product variant. */
     public private(set) var price: Int
+    /** The duration of the product item, in minutes. */
+    public private(set) var duration: Int?
 
-    public init(id: UUID, title: String, price: Int) {
+    public init(id: UUID, title: String, price: Int, duration: Int? = nil) {
         self.id = id
         self.title = title
         self.price = price
+        self.duration = duration
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case id
         case title
         case price
+        case duration
     }
 
     // Encodable protocol methods
@@ -39,6 +43,7 @@ public struct ProductVariant: Codable {
         try container.encode(id, forKey: .id)
         try container.encode(title, forKey: .title)
         try container.encode(price, forKey: .price)
+        try container.encodeIfPresent(duration, forKey: .duration)
     }
 }
 
