@@ -91,6 +91,167 @@ open class AppointmentsAPI {
     }
 
     /**
+     * enum for parameter filterTimeframe
+     */
+    public enum FilterTimeframe_getAvailableDates: String, CaseIterable {
+    }
+
+    /**
+     Fetch available days for a user or group
+     
+     - parameter filterUserIds: (query) The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+     - parameter filterAppointmentId: (query) Appointment ID used to fetch availability for an existing order (optional)
+     - parameter filterStartAt: (query) Returns availability after start_at (optional)
+     - parameter filterEndAt: (query) Returns availability before end_at (optional)
+     - parameter filterTimeframe: (query) Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     - parameter duration: (query) Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     - parameter interval: (query) Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     - parameter timezone: (query) Timezone of the client. Localizes the available days (optional)
+     - parameter page: (query) The requested page of results (optional)
+     - parameter perPage: (query) The number of results per page. Only applies when using a date range (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getAvailableDates(filterUserIds: [UUID]? = nil, filterAppointmentId: String? = nil, filterStartAt: Date? = nil, filterEndAt: Date? = nil, filterTimeframe: [String]? = nil, duration: Int? = nil, interval: Int? = nil, timezone: String? = nil, page: Int? = nil, perPage: Int? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: CalendarDayCollection?, _ error: Error?) -> Void)) {
+        getAvailableDatesWithRequestBuilder(filterUserIds: filterUserIds, filterAppointmentId: filterAppointmentId, filterStartAt: filterStartAt, filterEndAt: filterEndAt, filterTimeframe: filterTimeframe, duration: duration, interval: interval, timezone: timezone, page: page, perPage: perPage).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Fetch available days for a user or group
+     - GET /scheduling/available-dates
+     - Fetch available calendar days for scheduling or rescheduling an appointment. Availability can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through weeks, months, etc.
+     - BASIC:
+       - type: http
+       - name: Token
+     - parameter filterUserIds: (query) The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+     - parameter filterAppointmentId: (query) Appointment ID used to fetch availability for an existing order (optional)
+     - parameter filterStartAt: (query) Returns availability after start_at (optional)
+     - parameter filterEndAt: (query) Returns availability before end_at (optional)
+     - parameter filterTimeframe: (query) Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     - parameter duration: (query) Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     - parameter interval: (query) Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     - parameter timezone: (query) Timezone of the client. Localizes the available days (optional)
+     - parameter page: (query) The requested page of results (optional)
+     - parameter perPage: (query) The number of results per page. Only applies when using a date range (optional)
+     - returns: RequestBuilder<CalendarDayCollection> 
+     */
+    open class func getAvailableDatesWithRequestBuilder(filterUserIds: [UUID]? = nil, filterAppointmentId: String? = nil, filterStartAt: Date? = nil, filterEndAt: Date? = nil, filterTimeframe: [String]? = nil, duration: Int? = nil, interval: Int? = nil, timezone: String? = nil, page: Int? = nil, perPage: Int? = nil) -> RequestBuilder<CalendarDayCollection> {
+        let localVariablePath = "/scheduling/available-dates"
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "filter[user_ids]": filterUserIds?.encodeToJSON(),
+            "filter[appointment_id]": filterAppointmentId?.encodeToJSON(),
+            "filter[start_at]": filterStartAt?.encodeToJSON(),
+            "filter[end_at]": filterEndAt?.encodeToJSON(),
+            "filter[timeframe]": filterTimeframe?.encodeToJSON(),
+            "duration": duration?.encodeToJSON(),
+            "interval": interval?.encodeToJSON(),
+            "timezone": timezone?.encodeToJSON(),
+            "page": page?.encodeToJSON(),
+            "per_page": perPage?.encodeToJSON(),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<CalendarDayCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
+    }
+
+    /**
+     * enum for parameter filterTimeframe
+     */
+    public enum FilterTimeframe_getAvailableTimeslots: String, CaseIterable {
+    }
+
+    /**
+     Fetch available timeslots for a user or group
+     
+     - parameter filterUserIds: (query) The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     - parameter filterAppointmentId: (query) Appointment ID used to fetch availability for an existing order (optional)
+     - parameter filterStartAt: (query) Returns availability after start_at (optional)
+     - parameter filterEndAt: (query) Returns availability before end_at (optional)
+     - parameter filterTimeframe: (query) Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     - parameter duration: (query) Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     - parameter interval: (query) Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     - parameter page: (query) The requested page of results (optional)
+     - parameter perPage: (query) The number of results per page. Only applies when using a date range (optional)
+     - parameter apiResponseQueue: The queue on which api response is dispatched.
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func getAvailableTimeslots(filterUserIds: [UUID]? = nil, filterAppointmentId: String? = nil, filterStartAt: Date? = nil, filterEndAt: Date? = nil, filterTimeframe: [String]? = nil, duration: Int? = nil, interval: Int? = nil, page: Int? = nil, perPage: Int? = nil, apiResponseQueue: DispatchQueue = Aryeo.apiResponseQueue, completion: @escaping ((_ data: TimeslotCollection?, _ error: Error?) -> Void)) {
+        getAvailableTimeslotsWithRequestBuilder(filterUserIds: filterUserIds, filterAppointmentId: filterAppointmentId, filterStartAt: filterStartAt, filterEndAt: filterEndAt, filterTimeframe: filterTimeframe, duration: duration, interval: interval, page: page, perPage: perPage).execute(apiResponseQueue) { result -> Void in
+            switch result {
+            case let .success(response):
+                completion(response.body, nil)
+            case let .failure(error):
+                completion(nil, error)
+            }
+        }
+    }
+
+    /**
+     Fetch available timeslots for a user or group
+     - GET /scheduling/available-timeslots
+     - Fetch available timeslots for scheduling or rescheduling an appointment. Timeslots can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through days or weeks.
+     - BASIC:
+       - type: http
+       - name: Token
+     - parameter filterUserIds: (query) The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+     - parameter filterAppointmentId: (query) Appointment ID used to fetch availability for an existing order (optional)
+     - parameter filterStartAt: (query) Returns availability after start_at (optional)
+     - parameter filterEndAt: (query) Returns availability before end_at (optional)
+     - parameter filterTimeframe: (query) Returns availability for a specific timeframe. Used instead of start_at &amp; end_at (optional)
+     - parameter duration: (query) Duration of the event to schedule. Required if appointment_id isn&#39;t specified (optional)
+     - parameter interval: (query) Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified (optional)
+     - parameter page: (query) The requested page of results (optional)
+     - parameter perPage: (query) The number of results per page. Only applies when using a date range (optional)
+     - returns: RequestBuilder<TimeslotCollection> 
+     */
+    open class func getAvailableTimeslotsWithRequestBuilder(filterUserIds: [UUID]? = nil, filterAppointmentId: String? = nil, filterStartAt: Date? = nil, filterEndAt: Date? = nil, filterTimeframe: [String]? = nil, duration: Int? = nil, interval: Int? = nil, page: Int? = nil, perPage: Int? = nil) -> RequestBuilder<TimeslotCollection> {
+        let localVariablePath = "/scheduling/available-timeslots"
+        let localVariableURLString = Aryeo.basePath + localVariablePath
+        let localVariableParameters: [String: Any]? = nil
+
+        var localVariableUrlComponents = URLComponents(string: localVariableURLString)
+        localVariableUrlComponents?.queryItems = APIHelper.mapValuesToQueryItems([
+            "filter[user_ids]": filterUserIds?.encodeToJSON(),
+            "filter[appointment_id]": filterAppointmentId?.encodeToJSON(),
+            "filter[start_at]": filterStartAt?.encodeToJSON(),
+            "filter[end_at]": filterEndAt?.encodeToJSON(),
+            "filter[timeframe]": filterTimeframe?.encodeToJSON(),
+            "duration": duration?.encodeToJSON(),
+            "interval": interval?.encodeToJSON(),
+            "page": page?.encodeToJSON(),
+            "per_page": perPage?.encodeToJSON(),
+        ])
+
+        let localVariableNillableHeaders: [String: Any?] = [
+            :
+        ]
+
+        let localVariableHeaderParameters = APIHelper.rejectNilHeaders(localVariableNillableHeaders)
+
+        let localVariableRequestBuilder: RequestBuilder<TimeslotCollection>.Type = Aryeo.requestBuilderFactory.getBuilder()
+
+        return localVariableRequestBuilder.init(method: "GET", URLString: (localVariableUrlComponents?.string ?? localVariableURLString), parameters: localVariableParameters, headers: localVariableHeaderParameters)
+    }
+
+    /**
      List all unconfirmed appointments.
      
      - parameter include: (query) Comma separated list of optional data to include in the response. (optional)

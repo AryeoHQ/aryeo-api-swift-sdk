@@ -5,6 +5,8 @@ All URIs are relative to *https://api.aryeo.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAppointments**](AppointmentsAPI.md#getappointments) | **GET** /appointments | List all appointments.
+[**getAvailableDates**](AppointmentsAPI.md#getavailabledates) | **GET** /scheduling/available-dates | Fetch available days for a user or group
+[**getAvailableTimeslots**](AppointmentsAPI.md#getavailabletimeslots) | **GET** /scheduling/available-timeslots | Fetch available timeslots for a user or group
 [**getUnconfirmedAppointments**](AppointmentsAPI.md#getunconfirmedappointments) | **GET** /unconfirmed-appointments | List all unconfirmed appointments.
 [**getUnconfirmedAppointmentsId**](AppointmentsAPI.md#getunconfirmedappointmentsid) | **GET** /unconfirmed-appointments/{unconfirmed_appointment_id} | Retrieve an unconfirmed appointment.
 [**putAppointmentsAppointmentIdCancel**](AppointmentsAPI.md#putappointmentsappointmentidcancel) | **PUT** /appointments/{appointment_id}/cancel | Cancel an appointment.
@@ -63,6 +65,140 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AppointmentCollection**](AppointmentCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getAvailableDates**
+```swift
+    open class func getAvailableDates(filterUserIds: [UUID]? = nil, filterAppointmentId: String? = nil, filterStartAt: Date? = nil, filterEndAt: Date? = nil, filterTimeframe: [String]? = nil, duration: Int? = nil, interval: Int? = nil, timezone: String? = nil, page: Int? = nil, perPage: Int? = nil, completion: @escaping (_ data: CalendarDayCollection?, _ error: Error?) -> Void)
+```
+
+Fetch available days for a user or group
+
+Fetch available calendar days for scheduling or rescheduling an appointment. Availability can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through weeks, months, etc.
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import Aryeo
+
+let filterUserIds = [123] // [UUID] | The IDs of users whose availability will be retrieved. UUID Version 4. (optional)
+let filterAppointmentId = "filterAppointmentId_example" // String | Appointment ID used to fetch availability for an existing order (optional)
+let filterStartAt = Date() // Date | Returns availability after start_at (optional)
+let filterEndAt = Date() // Date | Returns availability before end_at (optional)
+let filterTimeframe = ["inner_example"] // [String] | Returns availability for a specific timeframe. Used instead of start_at & end_at (optional)
+let duration = 987 // Int | Duration of the event to schedule. Required if appointment_id isn't specified (optional)
+let interval = 987 // Int | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn't specified (optional)
+let timezone = "timezone_example" // String | Timezone of the client. Localizes the available days (optional)
+let page = 987 // Int | The requested page of results (optional)
+let perPage = 987 // Int | The number of results per page. Only applies when using a date range (optional)
+
+// Fetch available days for a user or group
+AppointmentsAPI.getAvailableDates(filterUserIds: filterUserIds, filterAppointmentId: filterAppointmentId, filterStartAt: filterStartAt, filterEndAt: filterEndAt, filterTimeframe: filterTimeframe, duration: duration, interval: interval, timezone: timezone, page: page, perPage: perPage) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterUserIds** | [**[UUID]**](UUID.md) | The IDs of users whose availability will be retrieved. UUID Version 4. | [optional] 
+ **filterAppointmentId** | **String** | Appointment ID used to fetch availability for an existing order | [optional] 
+ **filterStartAt** | **Date** | Returns availability after start_at | [optional] 
+ **filterEndAt** | **Date** | Returns availability before end_at | [optional] 
+ **filterTimeframe** | [**[String]**](String.md) | Returns availability for a specific timeframe. Used instead of start_at &amp; end_at | [optional] 
+ **duration** | **Int** | Duration of the event to schedule. Required if appointment_id isn&#39;t specified | [optional] 
+ **interval** | **Int** | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified | [optional] 
+ **timezone** | **String** | Timezone of the client. Localizes the available days | [optional] 
+ **page** | **Int** | The requested page of results | [optional] 
+ **perPage** | **Int** | The number of results per page. Only applies when using a date range | [optional] 
+
+### Return type
+
+[**CalendarDayCollection**](CalendarDayCollection.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **getAvailableTimeslots**
+```swift
+    open class func getAvailableTimeslots(filterUserIds: [UUID]? = nil, filterAppointmentId: String? = nil, filterStartAt: Date? = nil, filterEndAt: Date? = nil, filterTimeframe: [String]? = nil, duration: Int? = nil, interval: Int? = nil, page: Int? = nil, perPage: Int? = nil, completion: @escaping (_ data: TimeslotCollection?, _ error: Error?) -> Void)
+```
+
+Fetch available timeslots for a user or group
+
+Fetch available timeslots for scheduling or rescheduling an appointment. Timeslots can be retrieved using a specific start & end date range, or using a timeframe. When using a timeframe, the page parameter can be used to flip through days or weeks.
+
+### Example 
+```swift
+// The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
+import Aryeo
+
+let filterUserIds = [123] // [UUID] | The IDs of users whose appointments will be retrieved. UUID Version 4. (optional)
+let filterAppointmentId = "filterAppointmentId_example" // String | Appointment ID used to fetch availability for an existing order (optional)
+let filterStartAt = Date() // Date | Returns availability after start_at (optional)
+let filterEndAt = Date() // Date | Returns availability before end_at (optional)
+let filterTimeframe = ["inner_example"] // [String] | Returns availability for a specific timeframe. Used instead of start_at & end_at (optional)
+let duration = 987 // Int | Duration of the event to schedule. Required if appointment_id isn't specified (optional)
+let interval = 987 // Int | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn't specified (optional)
+let page = 987 // Int | The requested page of results (optional)
+let perPage = 987 // Int | The number of results per page. Only applies when using a date range (optional)
+
+// Fetch available timeslots for a user or group
+AppointmentsAPI.getAvailableTimeslots(filterUserIds: filterUserIds, filterAppointmentId: filterAppointmentId, filterStartAt: filterStartAt, filterEndAt: filterEndAt, filterTimeframe: filterTimeframe, duration: duration, interval: interval, page: page, perPage: perPage) { (response, error) in
+    guard error == nil else {
+        print(error)
+        return
+    }
+
+    if (response) {
+        dump(response)
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **filterUserIds** | [**[UUID]**](UUID.md) | The IDs of users whose appointments will be retrieved. UUID Version 4. | [optional] 
+ **filterAppointmentId** | **String** | Appointment ID used to fetch availability for an existing order | [optional] 
+ **filterStartAt** | **Date** | Returns availability after start_at | [optional] 
+ **filterEndAt** | **Date** | Returns availability before end_at | [optional] 
+ **filterTimeframe** | [**[String]**](String.md) | Returns availability for a specific timeframe. Used instead of start_at &amp; end_at | [optional] 
+ **duration** | **Int** | Duration of the event to schedule. Required if appointment_id isn&#39;t specified | [optional] 
+ **interval** | **Int** | Interval of bookable timeslots starting at x minutes on the hour . Required if appointment_id isn&#39;t specified | [optional] 
+ **page** | **Int** | The requested page of results | [optional] 
+ **perPage** | **Int** | The number of results per page. Only applies when using a date range | [optional] 
+
+### Return type
+
+[**TimeslotCollection**](TimeslotCollection.md)
 
 ### Authorization
 
