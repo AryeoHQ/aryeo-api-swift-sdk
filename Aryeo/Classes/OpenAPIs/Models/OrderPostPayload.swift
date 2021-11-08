@@ -17,16 +17,10 @@ public struct OrderPostPayload: Codable {
         case fulfilled = "FULFILLED"
         case unfulfilled = "UNFULFILLED"
     }
-    public enum PaymentStatus: String, Codable, CaseIterable {
-        case paid = "PAID"
-        case unpaid = "UNPAID"
-    }
     /** The fulfillment status of the order. Defaults to \"UNFULFILLED\". */
     public private(set) var fulfillmentStatus: FulfillmentStatus?
     /** Internal notes that will be attached to the order. Viewable only by the team. */
     public private(set) var internalNotes: String?
-    /** The payment status of the order. Defaults to \"UNPAID\".  */
-    public private(set) var paymentStatus: PaymentStatus?
     /** ID of the address to associate with the order. UUID Version 4. */
     public private(set) var addressId: UUID?
     /** ID of the customer to associate with the order. UUID Version 4. */
@@ -34,10 +28,9 @@ public struct OrderPostPayload: Codable {
     /** Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent. */
     public private(set) var notify: Bool?
 
-    public init(fulfillmentStatus: FulfillmentStatus? = nil, internalNotes: String? = nil, paymentStatus: PaymentStatus? = nil, addressId: UUID? = nil, customerId: UUID? = nil, notify: Bool? = nil) {
+    public init(fulfillmentStatus: FulfillmentStatus? = nil, internalNotes: String? = nil, addressId: UUID? = nil, customerId: UUID? = nil, notify: Bool? = nil) {
         self.fulfillmentStatus = fulfillmentStatus
         self.internalNotes = internalNotes
-        self.paymentStatus = paymentStatus
         self.addressId = addressId
         self.customerId = customerId
         self.notify = notify
@@ -46,7 +39,6 @@ public struct OrderPostPayload: Codable {
     public enum CodingKeys: String, CodingKey, CaseIterable {
         case fulfillmentStatus = "fulfillment_status"
         case internalNotes = "internal_notes"
-        case paymentStatus = "payment_status"
         case addressId = "address_id"
         case customerId = "customer_id"
         case notify
@@ -58,7 +50,6 @@ public struct OrderPostPayload: Codable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(fulfillmentStatus, forKey: .fulfillmentStatus)
         try container.encodeIfPresent(internalNotes, forKey: .internalNotes)
-        try container.encodeIfPresent(paymentStatus, forKey: .paymentStatus)
         try container.encodeIfPresent(addressId, forKey: .addressId)
         try container.encodeIfPresent(customerId, forKey: .customerId)
         try container.encodeIfPresent(notify, forKey: .notify)
