@@ -27,7 +27,7 @@ let filterSearch = "filterSearch_example" // String | Return listings that have 
 let filterAddress = "filterAddress_example" // String | Return listings that have an address matching this term. (optional)
 let filterListAgent = "filterListAgent_example" // String | Return listings that have a listing agent or co-listing agent matching this term. (optional)
 let filterStatus = "filterStatus_example" // String | Return listings that have a certain status. (optional)
-let filterActive = true // Bool | Set as true to return listings that have an active status (e.g. active statuses include `COMING_SOON`, `FOR_SALE`, `FOR_LEASE`, `PENDING_SALE`, `PENDING_LEASE`, `SOLD`, `LEASED`).  (optional)
+let filterActive = true // Bool | Set as true to return listings that have an active status (e.g. active statuses include `COMING_SOON`, `FOR_SALE`, `FOR_LEASE`, `PENDING_SALE`, `PENDING_LEASE`, `SOLD`, `LEASED`). (optional)
 let filterPriceGte = 987 // Double | Return listings where the price field is greater than or equal to this value. (optional)
 let filterPriceLte = 987 // Double | Return listings where the price field is less than or equal to this value. (optional)
 let filterSquareFeetGte = 987 // Double | Return listings where the square feet field is greater than or equal to this value. (optional)
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
  **filterAddress** | **String** | Return listings that have an address matching this term. | [optional] 
  **filterListAgent** | **String** | Return listings that have a listing agent or co-listing agent matching this term. | [optional] 
  **filterStatus** | **String** | Return listings that have a certain status. | [optional] 
- **filterActive** | **Bool** | Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;).  | [optional] 
+ **filterActive** | **Bool** | Set as true to return listings that have an active status (e.g. active statuses include &#x60;COMING_SOON&#x60;, &#x60;FOR_SALE&#x60;, &#x60;FOR_LEASE&#x60;, &#x60;PENDING_SALE&#x60;, &#x60;PENDING_LEASE&#x60;, &#x60;SOLD&#x60;, &#x60;LEASED&#x60;). | [optional] 
  **filterPriceGte** | **Double** | Return listings where the price field is greater than or equal to this value. | [optional] 
  **filterPriceLte** | **Double** | Return listings where the price field is less than or equal to this value. | [optional] 
  **filterSquareFeetGte** | **Double** | Return listings where the square feet field is greater than or equal to this value. | [optional] 

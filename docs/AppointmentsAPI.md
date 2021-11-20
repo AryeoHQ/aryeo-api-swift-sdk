@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 List all unconfirmed appointments.
 
-List all unconfirmed appointments. These are appointments that have not been scheduled. 
+List all unconfirmed appointments. These are appointments that have not been scheduled.
 
 ### Example 
 ```swift
@@ -328,7 +328,7 @@ Name | Type | Description  | Notes
 
 Cancel an appointment.
 
-Cancel an appointment. The appointments order's customer can be optionally notified of this change. 
+Cancel an appointment. The appointments order's customer can be optionally notified of this change.
 
 ### Example 
 ```swift
@@ -380,7 +380,7 @@ Name | Type | Description  | Notes
 
 Reschedule an appointment.
 
-Reschedule an appointment. The appointments order's customer can be optionally notified of this change. 
+Reschedule an appointment. The appointments order's customer can be optionally notified of this change.
 
 ### Example 
 ```swift

@@ -276,7 +276,7 @@ open class AppointmentsAPI {
     /**
      List all unconfirmed appointments.
      - GET /unconfirmed-appointments
-     - List all unconfirmed appointments. These are appointments that have not been scheduled. 
+     - List all unconfirmed appointments. These are appointments that have not been scheduled.
      - BASIC:
        - type: http
        - name: Token
@@ -388,7 +388,7 @@ open class AppointmentsAPI {
     /**
      Cancel an appointment.
      - PUT /appointments/{appointment_id}/cancel
-     - Cancel an appointment. The appointments order's customer can be optionally notified of this change. 
+     - Cancel an appointment. The appointments order's customer can be optionally notified of this change.
      - BASIC:
        - type: http
        - name: Token
@@ -439,7 +439,7 @@ open class AppointmentsAPI {
     /**
      Reschedule an appointment.
      - PUT /appointments/{appointment_id}/reschedule
-     - Reschedule an appointment. The appointments order's customer can be optionally notified of this change. 
+     - Reschedule an appointment. The appointments order's customer can be optionally notified of this change.
      - BASIC:
        - type: http
        - name: Token
