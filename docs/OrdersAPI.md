@@ -192,7 +192,7 @@ Create an order.
 // The following code samples are still beta. For any issue, please report via http://github.com/OpenAPITools/openapi-generator/issues/new
 import Aryeo
 
-let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", internalNotes: "internalNotes_example", addressId: 123, customerId: 123, notify: true) // OrderPostPayload | OrderPostPayload (optional)
+let orderPostPayload = OrderPostPayload(fulfillmentStatus: "fulfillmentStatus_example", internalNotes: "internalNotes_example", addressId: 123, customerId: 123, notify: true, lockDownloadForPayment: true, allowPaymentsBeforeFulfillment: true) // OrderPostPayload | OrderPostPayload (optional)
 
 // Create an order.
 OrdersAPI.postOrders(orderPostPayload: orderPostPayload) { (response, error) in

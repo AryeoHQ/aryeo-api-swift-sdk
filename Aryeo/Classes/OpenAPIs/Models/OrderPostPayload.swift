@@ -27,13 +27,19 @@ public struct OrderPostPayload: Codable {
     public private(set) var customerId: UUID?
     /** Indicates if the customer and creator notifications should be sent when creating the order. Requires an address and customer to be set in order for the notifications to be sent. */
     public private(set) var notify: Bool?
+    /** Indicates if the downloads for the attached listing should be locked while there is an outstanding balance on the order. */
+    public private(set) var lockDownloadForPayment: Bool?
+    /** Indicates if the order will allow payments from the customer before the order is marked as fulfilled. */
+    public private(set) var allowPaymentsBeforeFulfillment: Bool?
 
-    public init(fulfillmentStatus: FulfillmentStatus? = nil, internalNotes: String? = nil, addressId: UUID? = nil, customerId: UUID? = nil, notify: Bool? = nil) {
+    public init(fulfillmentStatus: FulfillmentStatus? = nil, internalNotes: String? = nil, addressId: UUID? = nil, customerId: UUID? = nil, notify: Bool? = nil, lockDownloadForPayment: Bool? = nil, allowPaymentsBeforeFulfillment: Bool? = nil) {
         self.fulfillmentStatus = fulfillmentStatus
         self.internalNotes = internalNotes
         self.addressId = addressId
         self.customerId = customerId
         self.notify = notify
+        self.lockDownloadForPayment = lockDownloadForPayment
+        self.allowPaymentsBeforeFulfillment = allowPaymentsBeforeFulfillment
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
@@ -42,6 +48,8 @@ public struct OrderPostPayload: Codable {
         case addressId = "address_id"
         case customerId = "customer_id"
         case notify
+        case lockDownloadForPayment = "lock_download_for_payment"
+        case allowPaymentsBeforeFulfillment = "allow_payments_before_fulfillment"
     }
 
     // Encodable protocol methods
@@ -53,6 +61,8 @@ public struct OrderPostPayload: Codable {
         try container.encodeIfPresent(addressId, forKey: .addressId)
         try container.encodeIfPresent(customerId, forKey: .customerId)
         try container.encodeIfPresent(notify, forKey: .notify)
+        try container.encodeIfPresent(lockDownloadForPayment, forKey: .lockDownloadForPayment)
+        try container.encodeIfPresent(allowPaymentsBeforeFulfillment, forKey: .allowPaymentsBeforeFulfillment)
     }
 }
 

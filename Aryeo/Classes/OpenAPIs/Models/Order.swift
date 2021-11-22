@@ -49,6 +49,10 @@ public struct Order: Codable {
     public private(set) var paymentUrl: String?
     /** A URL of a publicly-accessible webpage to see the order's status. */
     public private(set) var statusUrl: String?
+    /** Indicates if the current user is allowed to download content from the attached listing. */
+    public private(set) var downloadsAllowed: Bool?
+    /** Indicates if the current user is allowed to make a payment for the order. */
+    public private(set) var paymentsAllowed: Bool?
     public private(set) var address: Address?
     public private(set) var customer: Group?
     public private(set) var listing: Listing?
@@ -57,7 +61,7 @@ public struct Order: Codable {
     public private(set) var appointments: [Appointment]?
     public private(set) var unconfirmedAppointments: [UnconfirmedAppointment]?
 
-    public init(id: UUID, number: Int, title: String, fulfillmentStatus: FulfillmentStatus, paymentStatus: PaymentStatus, currency: Currency? = nil, totalAmount: Int? = nil, paymentUrl: String? = nil, statusUrl: String?, address: Address? = nil, customer: Group? = nil, listing: Listing? = nil, items: [OrderItem]? = nil, appointments: [Appointment]? = nil, unconfirmedAppointments: [UnconfirmedAppointment]? = nil) {
+    public init(id: UUID, number: Int, title: String, fulfillmentStatus: FulfillmentStatus, paymentStatus: PaymentStatus, currency: Currency? = nil, totalAmount: Int? = nil, paymentUrl: String? = nil, statusUrl: String?, downloadsAllowed: Bool? = nil, paymentsAllowed: Bool? = nil, address: Address? = nil, customer: Group? = nil, listing: Listing? = nil, items: [OrderItem]? = nil, appointments: [Appointment]? = nil, unconfirmedAppointments: [UnconfirmedAppointment]? = nil) {
         self.id = id
         self.number = number
         self.title = title
@@ -67,6 +71,8 @@ public struct Order: Codable {
         self.totalAmount = totalAmount
         self.paymentUrl = paymentUrl
         self.statusUrl = statusUrl
+        self.downloadsAllowed = downloadsAllowed
+        self.paymentsAllowed = paymentsAllowed
         self.address = address
         self.customer = customer
         self.listing = listing
@@ -85,6 +91,8 @@ public struct Order: Codable {
         case totalAmount = "total_amount"
         case paymentUrl = "payment_url"
         case statusUrl = "status_url"
+        case downloadsAllowed = "downloads_allowed"
+        case paymentsAllowed = "payments_allowed"
         case address
         case customer
         case listing
@@ -106,6 +114,8 @@ public struct Order: Codable {
         try container.encodeIfPresent(totalAmount, forKey: .totalAmount)
         try container.encodeIfPresent(paymentUrl, forKey: .paymentUrl)
         try container.encode(statusUrl, forKey: .statusUrl)
+        try container.encodeIfPresent(downloadsAllowed, forKey: .downloadsAllowed)
+        try container.encodeIfPresent(paymentsAllowed, forKey: .paymentsAllowed)
         try container.encodeIfPresent(address, forKey: .address)
         try container.encodeIfPresent(customer, forKey: .customer)
         try container.encodeIfPresent(listing, forKey: .listing)
